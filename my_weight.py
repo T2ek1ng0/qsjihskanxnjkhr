@@ -22,6 +22,8 @@ class population_weight:
             fes_cost = curr_x.shape[0]
         if self.check(curr_fes + fes_cost):
             return True
+        else:
+            return False
 
 class sub_problem_weight:
     def __init__(self, n_problem, weights, rates, max_fes):
