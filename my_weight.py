@@ -73,8 +73,7 @@ class sub_problem_weight:
         if fes_cost is None:
             fes_cost = curr_x.shape[0]
         if self.check(curr_fes + fes_cost):
-            new_weights = np.zeros(self.n_problem)
-            new_weights[self.pos] = 1
-            self.weights = new_weights
-            self.pos += 1
+            self.weights[:] = 0
+            self.weights[self.pos] = 1
+            self.pos = (self.pos + 1) % self.n_problem
         return self.weights
