@@ -17,11 +17,11 @@ class population_weight:
                 return True
         return False
 
-    def change(self, problem, curr_fes, curr_x, fes_cost=None):
+    def change(self, curr_fes, curr_x, fes_cost=None):
         if fes_cost is None:
             fes_cost = curr_x.shape[0]
         if self.check(curr_fes + fes_cost):
-            problem.eval(curr_x)
+            return True
 
 class sub_problem_weight:
     def __init__(self, n_problem, weights, rates, max_fes):
