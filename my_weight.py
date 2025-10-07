@@ -1,21 +1,33 @@
 import numpy as np
 from collections import deque
+from typing import Union
 
 class population_weight:
-    def __init__(self, weights, rates, max_fes):
+    def __init__(self, weights, rates: Union[list, float], max_fes):
         self.weights = weights
-        self.queue = deque((rates[i]*max_fes, rates[i+1]*max_fes) for i in range(len(rates)-1))  # rates 像 [0.2,0.4,0.6,0.8] 这样
+        self.rates = rates
+        self.max_fes = max_fes
+        if isinstance(self.rates, list):
+            self.queue = deque((rates[i]*max_fes, rates[i+1]*max_fes) for i in range(len(rates)-1))  # rates 像 [0.2,0.4,0.6,0.8] 这样
+        else:
+            self.threshold = rates * max_fes
 
     def check(self, current_fes):
-        while self.queue and current_fes > self.queue[0][1]:
-            self.queue.popleft()
-
-        if self.queue:
-            lb, ub = self.queue[0]
-            if lb <= current_fes <= ub:
+        if isinstance(self.rates, list):
+            while self.queue and current_fes > self.queue[0][1]:
                 self.queue.popleft()
+
+            if self.queue:
+                lb, ub = self.queue[0]
+                if lb <= current_fes <= ub:
+                    self.queue.popleft()
+                    return True
+            return False
+        else:
+            if current_fes >= self.threshold:
+                self.threshold += self.max_fes * self.rates
                 return True
-        return False
+            return False
 
     def change(self, curr_fes, curr_x, fes_cost=None):
         if fes_cost is None:
@@ -26,30 +38,43 @@ class population_weight:
             return False
 
 class sub_problem_weight:
-    def __init__(self, n_problem, weights, rates, max_fes):
-        self.queue = deque((rates[i] * max_fes, rates[i + 1] * max_fes, i) for i in range(len(rates) - 1))  # rates 像 [0.2,0.4,0.6,0.8] 这样
+    def __init__(self, n_problem, weights, rates: Union[list, float], max_fes):
         self.rates = rates
         self.n_problem = n_problem
         self.weights = weights
+        self.max_fes = max_fes
+        if 0 in self.weights:
+            self.pos = self.weights.index(0)
+        else:
+            self.pos = 0
+        if isinstance(self.rates, list):
+            self.queue = deque((rates[i]*max_fes, rates[i+1]*max_fes) for i in range(len(rates)-1))  # rates 像 [0.2,0.4,0.6,0.8] 这样
+        else:
+            self.threshold = rates * max_fes
 
     def check(self, current_fes):
-        while self.queue and current_fes > self.queue[0][1]:
-            self.queue.popleft()
-
-        if self.queue:
-            lb, ub, idx = self.queue[0]
-            if lb <= current_fes <= ub:
+        if isinstance(self.rates, list):
+            while self.queue and current_fes > self.queue[0][1]:
                 self.queue.popleft()
-                return idx
-        return -1
+
+            if self.queue:
+                lb, ub= self.queue[0]
+                if lb <= current_fes <= ub:
+                    self.queue.popleft()
+                    return True
+            return False
+        else:
+            if current_fes >= self.threshold:
+                self.threshold += self.max_fes * self.rates
+                return True
+            return False
 
     def change(self, curr_fes, curr_x, fes_cost=None):
         if fes_cost is None:
             fes_cost = curr_x.shape[0]
-        idx = self.check(curr_fes + fes_cost)
-        if idx != -1:
+        if self.check(curr_fes + fes_cost):
             new_weights = np.zeros(self.n_problem)
-            new_weights[idx] = 1
+            new_weights[self.pos] = 1
             self.weights = new_weights
+            self.pos += 1
         return self.weights
-
