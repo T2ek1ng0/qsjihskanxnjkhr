@@ -4,13 +4,13 @@ from my_noise import Gaussian_noise
 from metaevobox.environment.problem.basic_problem import Basic_Problem
 
 class Dynamic_Problem:
-    def __init__(self, problem_list: list,
-                 population_weight: list[Sub_Problem_Weight],
+    def __init__(self, problem_list: list[Basic_Problem],
+                 population_weight: Sub_Problem_Weight,
                  noise: Gaussian_noise,
                  max_fes):
         self.problem_list = problem_list
-        self.population_weight = population_weight
-        self.prob_noise = noise
+        self.population_weight = population_weight  # (ps,len(problem_list))
+        self.noise = noise
         self.dim = []
         self.lb = []
         self.ub = []
@@ -37,17 +37,13 @@ class Dynamic_Problem:
             x = np.array(x)
         if x.ndim == 1:
             x = x.reshape(1, -1)
+        weights = self.population_weight.cal_weight(self.fes, per_cost_fes=1)  # (ps,len(problem_list))
         result = []
-        for pop_idx, per_subpro_weight in enumerate(self.population_weight):  # 种群权重大小 (ps,n_problem)  problem.func(x)大小 (ps, 1)
-            if per_subpro_weight.check(self.fes):  # 评估次数满足变化条件，切换子问题
-                per_subpro_weight.weights[:] = 0
-                per_subpro_weight.pos = (per_subpro_weight.pos + 1) % len(self.problem_list)
-                per_subpro_weight.weights[per_subpro_weight.pos] = 1
-
+        for pop_idx, per_subpro_weight in enumerate(weights):
             res = 0.0
             for idx, problem in enumerate(self.problem_list):
-                res += per_subpro_weight.weights[idx] * self.prob_noise.make_noise(self.fes, self.max_fes, problem.func(x[pop_idx].reshape(1, -1))).item()
+                res += per_subpro_weight[idx] * self.noise.make_noise(self.fes, self.max_fes, problem.func(x[pop_idx].reshape(1, -1))).item()
                 self.fes += 1
             result.append(res)
-
         return result
+
