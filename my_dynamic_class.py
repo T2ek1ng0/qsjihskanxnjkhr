@@ -37,6 +37,6 @@ class Dynamic_Problem:
             self.sub_problem_weight.pos = (self.sub_problem_weight.pos + 1) % len(self.problem_list)
 
         for idx, problem in enumerate(self.problem_list):
-            result += self.sub_problem_weight.weights[idx] * self.prob_noise.make_noise(problem.FES, problem.maxfes, problem.eval(x))
+            result += self.sub_problem_weight.weights[idx] * self.prob_noise.make_noise(problem.FES, problem.maxfes, problem.func(x))
             self.fes += x.shape[0]
         return result
