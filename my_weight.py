@@ -2,8 +2,8 @@ import numpy as np
 from collections import deque
 from typing import Union
 
-class population_weight:
-    def __init__(self, weights, rates: Union[list, float], max_fes):
+class Population_Weight:
+    def __init__(self, weights: list, rates: Union[list, float], max_fes):
         self.weights = weights
         self.rates = rates
         self.max_fes = max_fes
@@ -29,16 +29,8 @@ class population_weight:
                 return True
             return False
 
-    def change(self, curr_fes, curr_x, fes_cost=None):
-        if fes_cost is None:
-            fes_cost = curr_x.shape[0]
-        if self.check(curr_fes + fes_cost):
-            return True
-        else:
-            return False
-
-class sub_problem_weight:
-    def __init__(self, n_problem, weights, rates: Union[list, float], max_fes):
+class Sub_Problem_Weight:
+    def __init__(self, n_problem, weights: list, rates: Union[list, float], max_fes):
         self.rates = rates
         self.n_problem = n_problem
         self.weights = weights
@@ -77,3 +69,5 @@ class sub_problem_weight:
             self.weights[self.pos] = 1
             self.pos = (self.pos + 1) % self.n_problem
         return self.weights
+
+
