@@ -12,7 +12,7 @@ class Sub_Problem_Weight:
         self.max_fes = max_fes
 
         if 1 in self.weights:
-            self.pos = int(np.where(self.weights == 1)[0][0])
+            self.pos = int(np.where(self.weights == 1)[0][0])  # pos 指向当前子问题
         else:
             self.pos = 0
         if isinstance(self.rates, np.ndarray):
@@ -26,7 +26,7 @@ class Sub_Problem_Weight:
                 self.queue.popleft()
 
             if self.queue:
-                lb, ub= self.queue[0]
+                lb, ub = self.queue[0]
                 if lb <= current_fes <= ub:
                     self.queue.popleft()
                     return True
@@ -36,4 +36,5 @@ class Sub_Problem_Weight:
                 self.threshold += self.max_fes * self.rates
                 return True
             return False
+
 

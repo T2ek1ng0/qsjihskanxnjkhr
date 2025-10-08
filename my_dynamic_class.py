@@ -23,6 +23,7 @@ class Dynamic_Problem:
 
     def reset(self):
         self.T1 = [0] * len(self.problem_list)
+        self.fes = 0
         for problem in self.problem_list:
             self.dim.append(problem.dim)
             self.lb.append(problem.lb)
@@ -40,8 +41,8 @@ class Dynamic_Problem:
         for pop_idx, per_subpro_weight in enumerate(self.population_weight):  # 种群权重大小 (ps,n_problem)  problem.func(x)大小 (ps, 1)
             if per_subpro_weight.check(self.fes):  # 评估次数满足变化条件，切换子问题
                 per_subpro_weight.weights[:] = 0
-                per_subpro_weight.weights[per_subpro_weight.pos] = 1
                 per_subpro_weight.pos = (per_subpro_weight.pos + 1) % len(self.problem_list)
+                per_subpro_weight.weights[per_subpro_weight.pos] = 1
 
             res = 0.0
             for idx, problem in enumerate(self.problem_list):
