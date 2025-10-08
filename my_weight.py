@@ -37,13 +37,3 @@ class Sub_Problem_Weight:
                 return True
             return False
 
-    def change(self, curr_fes, curr_x, fes_cost=None):
-        if fes_cost is None:
-            fes_cost = curr_x.shape[0]
-        if self.check(curr_fes + fes_cost):
-            self.weights[:] = 0
-            self.weights[self.pos] = 1
-            self.pos = (self.pos + 1) % self.n_problem
-        return self.weights
-
-
