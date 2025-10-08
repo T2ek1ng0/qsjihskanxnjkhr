@@ -42,7 +42,9 @@ class Dynamic_Problem:
         for pop_idx, per_subpro_weight in enumerate(weights):
             res = 0.0
             for idx, problem in enumerate(self.problem_list):
-                res += per_subpro_weight[idx] * self.noise.make_noise(self.fes, self.max_fes, problem.func(x[pop_idx].reshape(1, -1))).item()
+                x_input = x[pop_idx, :problem.dim]
+                res += per_subpro_weight[idx] * self.noise.make_noise(self.fes, self.max_fes,
+                                                                      problem.func(x_input)).item()
                 self.fes += 1
             result.append(res)
         return result
