@@ -43,7 +43,7 @@ class sub_problem_weight:
         self.n_problem = n_problem
         self.weights = weights
         self.max_fes = max_fes
-        if 0 in self.weights:
+        if 1 in self.weights:
             self.pos = self.weights.index(1)
         else:
             self.pos = 0
