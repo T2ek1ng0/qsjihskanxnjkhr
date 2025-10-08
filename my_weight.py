@@ -44,7 +44,7 @@ class sub_problem_weight:
         self.weights = weights
         self.max_fes = max_fes
         if 0 in self.weights:
-            self.pos = self.weights.index(0)
+            self.pos = self.weights.index(1)
         else:
             self.pos = 0
         if isinstance(self.rates, list):
