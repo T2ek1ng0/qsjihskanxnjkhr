@@ -36,14 +36,15 @@ class Dynamic_Problem:
         if x.ndim == 1:
             x = x.reshape(1, -1)
         weights = self.population_weight.cal_weight(self.fes, per_cost_fes=1)  # (ps,n_problem)
-        noise = self.noise.make_noise(self.fes, self.maxfes, self.n_problem)  # (ps,n_problem)
+        noise = self.noise.make_noise(self.fes, self.maxfes)  # 长度为 ps 的 list
         result = []
         for pop_idx, per_subpro_weight in enumerate(weights):  # 遍历种群中的每个个体
             res = 0.0
             for prob_idx, problem in enumerate(self.problem_list):  # 遍历问题列表
                 x_input = x[pop_idx, :problem.dim].reshape(1, -1)
-                res += per_subpro_weight[prob_idx] * (problem.func(x_input) + noise[pop_idx][prob_idx])
-            result.append(res.item())  # (1,1)的 np.ndarray 转回 float
+                res += per_subpro_weight[prob_idx] * problem.func(x_input)
+            result.append(res.item())
             self.fes[pop_idx] += 1
+        result += noise
         return result
 
