@@ -28,10 +28,10 @@ for _ in range(ps):
     random_index = np.random.randint(0, n_problem)
     random_subprob_weight[random_index] = 1
     population_weight.append(random_subprob_weight)
-population_weight = Sub_Problem_Weight(n_problem, population_weight, max_fes, rates=0.02)
+population_weight = Sub_Problem_Weight(n_problem, population_weight, max_fes, rates=[0.01, 0.03, 0.04])
 problem = Dynamic_Problem(test_problem_set, population_weight, my_noise, max_fes)
-
-for _ in range(3):
+problem.reset()
+for _ in range(5):
     print(problem.eval(random_x))
     print(problem.population_weight.get_weight())
     print(problem.fes)
