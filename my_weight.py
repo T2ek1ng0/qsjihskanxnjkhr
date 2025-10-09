@@ -6,47 +6,44 @@ class Sub_Problem_Weight:
     def __init__(self, n_problem, weights, max_fes, rates: Union[list, np.ndarray, float]):
         if isinstance(rates, list):
             rates = np.array(rates, dtype=float)
-        self.rates = rates
+        elif isinstance(rates, float):
+            if not (0 < rates <= 1.0):
+                raise ValueError(f"Invalid rate value {rates}, must be in (0, 1].")
+            temp_rates = np.arange(start=rates, stop=1.0, step=rates)
+            rates = np.round(temp_rates, 4)
+        elif not isinstance(rates, np.ndarray):
+            raise TypeError("rates must be list, np.ndarray, or float")
+        if isinstance(rates, np.ndarray):
+            if rates[-1] < 1.0 - 1e-8:
+                rates = np.append(rates, 1.0)
         self.n_problem = n_problem
+        self.rates = rates
         self.weights = np.array(weights, dtype=float)  # (ps,n_problem)
-        self.max_fes = max_fes
-        self.pos = []  # 指向每个粒子当前的子问题，默认为 0
+        self.ps = self.weights.shape[0]
+        self.maxfes = max_fes
+        self.pos = []  # 指向每个粒子当前的子问题索引，默认为 0
 
-        for per_weight in self.weights:
-            if 1 in per_weight:
-                self.pos.append(int(np.where(per_weight == 1)[0][0]))
-            else:
-                self.pos.append(0)
+        self.pos = np.argmax(self.weights, axis=1)
 
-        if isinstance(self.rates, np.ndarray):
-            self.queue = deque((rates[i]*max_fes, rates[i+1]*max_fes) for i in range(len(rates)-1))  # rates 像 [0.2,0.4,0.6,0.8] 这样
-        else:
-            self.threshold = rates * max_fes
+        self.total_queue = [deque((rates[i] * max_fes, rates[i + 1] * max_fes) for i in range(len(rates) - 1)) for _ in range(self.ps)]
 
-    def check(self, current_fes):
-        if isinstance(self.rates, np.ndarray):
-            while self.queue and current_fes > self.queue[0][1]:
-                self.queue.popleft()
+    def check(self, current_fes, pop_idx):  # 判定当前个体的评估次数是否满足权重变化要求
+        while self.total_queue[pop_idx] and current_fes > self.total_queue[pop_idx][0][1]:
+            self.total_queue[pop_idx].popleft()
 
-            if self.queue:
-                lb, ub = self.queue[0]
-                if lb <= current_fes <= ub:
-                    self.queue.popleft()
-                    return True
-            return False
-        else:
-            if current_fes >= self.threshold:
-                self.threshold += self.max_fes * self.rates
+        if self.total_queue[pop_idx]:
+            lb, ub = self.total_queue[pop_idx][0]
+            if lb <= current_fes <= ub:
+                self.total_queue[pop_idx].popleft()
                 return True
-            return False
+        return False
 
-    def cal_weight(self, curr_fes, per_cost_fes):
-        for idx, per_weight in enumerate(self.weights):
-            if self.check(curr_fes):
-                self.weights[idx][:] = 0
-                self.pos[idx] = (self.pos[idx] + 1) % self.n_problem
-                self.weights[idx][self.pos[idx]] = 1
-            curr_fes += per_cost_fes
+    def cal_weight(self, total_fes: list, per_cost_fes):  # total_fes: ps, weights: (ps,n_problem)
+        for pop_idx, per_fes in enumerate(total_fes):
+            if self.check(per_fes, pop_idx):
+                self.weights[pop_idx][:] = 0
+                self.pos[pop_idx] = (self.pos[pop_idx] + 1) % self.n_problem
+                self.weights[pop_idx][self.pos[pop_idx]] = 1
         return self.weights
 
     def get_weight(self):
