@@ -34,6 +34,7 @@ problem.reset()
 for _ in range(5):
     print(problem.eval(random_x))
     print(problem.population_weight.get_weight())
+    print(problem.population_weight.pos)
     print(problem.fes)
 
 
