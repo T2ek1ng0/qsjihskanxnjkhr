@@ -9,6 +9,7 @@ from metaevobox.environment.problem.utils import construct_problem_set
 config = {'train_problem': 'bbob-10D',
           'train_batch_size': 2,
           'train_parallel_mode': 'dummy',  # dummy/subproc/ray/ray-subproc
+          'max_learning_step': 1000,
           }
 config = Config(config)
 np.random.seed(config.seed)
@@ -28,12 +29,13 @@ for _ in range(ps):
     random_subprob_weight[random_index] = 1
     population_weight.append(random_subprob_weight)
 population_weight = Sub_Problem_Weight(n_problem, population_weight, max_fes, rates=0.02)
-problem_set = Dynamic_Problem(test_problem_set, population_weight, my_noise, max_fes)
+problem = Dynamic_Problem(test_problem_set, population_weight, my_noise, max_fes)
 
-print(problem_set.eval(random_x))
-print(problem_set.population_weight.get_weight())
-print(problem_set.eval(random_x))
-print(problem_set.population_weight.get_weight())
+for _ in range(3):
+    print(problem.eval(random_x))
+    print(problem.population_weight.get_weight())
+    print(problem.fes)
+
 
 
 
