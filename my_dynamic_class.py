@@ -17,8 +17,6 @@ class Dynamic_Problem:
         self.lb = []
         self.ub = []
         self.optimum = []
-        self.rho = []
-        self.nopt = []
         self.T1 = []
         self.fes = [0] * self.ps
         self.maxfes = max_fes
@@ -31,8 +29,6 @@ class Dynamic_Problem:
             self.lb.append(problem.lb)
             self.ub.append(problem.ub)
             self.optimum.append(problem.optimum)
-            self.rho.append(problem.rho)
-            self.nopt.append(problem.nopt)
 
     def eval(self, x):
         if not isinstance(x, np.ndarray):
