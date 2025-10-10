@@ -1,0 +1,17 @@
+import numpy as np
+
+class BaseNoiseStrategy:
+    def get_noise(self, current_fes):
+        raise NotImplementedError
+
+class LinearGaussianNoise(BaseNoiseStrategy):  
+    def __init__(self, start_noise, end_noise, max_fes):
+        self.start_noise = start_noise
+        self.end_noise = end_noise
+        self.max_fes = max_fes
+        self.slope = (end_noise - start_noise) / max_fes
+
+    def get_noise(self, current_fes):
+        current_fes_clamped = min(current_fes, self.max_fes)
+        current_noise = self.start_noise + self.slope * current_fes_clamped
+        return max(0.0, current_noise)
