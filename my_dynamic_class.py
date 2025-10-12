@@ -17,7 +17,7 @@ class Dynamic_Problem:
         self.lb = []
         self.ub = []
         self.optimum = []
-        self.T1 = []
+        self.T1 = [0] * self.n_problem
         self.fes = 0
         self.maxfes = max_fes
 
@@ -40,6 +40,7 @@ class Dynamic_Problem:
         fitness = np.zeros((self.ps, self.n_problem))
         for prob_idx, problem in enumerate(self.problem_list):
             x_input = x[:, :problem.dim]
+            x_input = np.clip(x_input, problem.lb, problem.ub)
             fitness[:, prob_idx] = problem.func(x_input)
         result = np.sum(weights * fitness, axis=1) + noise
         self.fes += self.ps
