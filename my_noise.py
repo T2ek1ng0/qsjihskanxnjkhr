@@ -6,9 +6,18 @@ class Gaussian_noise:
         self.end_std = end_std
         self.mean = mean
 
-    def make_noise(self, curr_fes: list, max_fes):  # curr_fes: ps,返回长度为 ps 的 list
-        total_noise = []
-        for i in range(len(curr_fes)):
-            std = self.begin_std + (self.end_std - self.begin_std) * curr_fes[i] / max_fes
-            total_noise.append(np.random.normal(self.mean, std, size=1).item())
-        return total_noise
+    def make_noise(self, curr_fes: int, max_fes, ps):  # fes: (ps,1), 返回 (ps,1) 的 np.ndarray
+        fes = np.arange(curr_fes, curr_fes + ps)
+        stds = self.begin_std + (self.end_std - self.begin_std) * fes / max_fes
+        noise = np.random.normal(self.mean, stds)
+        return noise.reshape(-1, 1)
+
+    def make_batch_noise(self, curr_fes: int, max_fes, ps, cost_fes=0):  # noise_matrix: (batch_size,ps)
+        batch_size = cost_fes // ps
+        fes = np.arange(curr_fes, curr_fes + ps * batch_size).reshape(batch_size, ps)  # (batch_size,ps)
+        total_std = self.begin_std + (self.end_std - self.begin_std) * fes / max_fes
+        return np.random.normal(self.mean, total_std)
+
+
+
+
