@@ -18,12 +18,12 @@ class Dynamic_Problem:
         self.ub = []
         self.optimum = []
         self.T1 = []
-        self.fes = [0] * self.ps
+        self.fes = 0
         self.maxfes = max_fes
 
     def reset(self):
         self.T1 = [0] * self.n_problem
-        self.fes = [0] * self.ps
+        self.fes = 0
         for problem in self.problem_list:
             self.dim.append(problem.dim)
             self.lb.append(problem.lb)
@@ -35,16 +35,14 @@ class Dynamic_Problem:
             x = np.array(x)
         if x.ndim == 1:
             x = x.reshape(1, -1)
-        weights = self.population_weight.cal_weight(self.fes, per_cost_fes=1)  # (ps,n_problem)
-        noise = self.noise.make_noise(self.fes, self.maxfes)  # 长度为 ps 的 list
-        result = []
-        for pop_idx, per_subpro_weight in enumerate(weights):  # 遍历种群中的每个个体
-            res = 0.0
-            for prob_idx, problem in enumerate(self.problem_list):  # 遍历问题列表
-                x_input = x[pop_idx, :problem.dim].reshape(1, -1)
-                res += per_subpro_weight[prob_idx] * problem.func(x_input)
-            result.append(res.item())
-            self.fes[pop_idx] += 1
-        result += noise
-        return result
+        noise = self.noise.make_noise(self.fes, self.maxfes, self.ps)  # (ps,1)
+        weights = self.population_weight.cal_weight(self.fes)  # (ps,n_problem)
+        fitness = np.zeros((self.ps, self.n_problem))
+        for prob_idx, problem in enumerate(self.problem_list):
+            x_input = x[:, :problem.dim]
+            fitness[:, prob_idx] = problem.func(x_input)
+        result = np.sum(weights * fitness, axis=1) + noise
+        self.fes += self.ps
+        return result.tolist()
+
 

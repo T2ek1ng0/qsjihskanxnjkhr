@@ -28,7 +28,7 @@ for _ in range(ps):
     random_index = np.random.randint(0, n_problem)
     random_subprob_weight[random_index] = 1
     population_weight.append(random_subprob_weight)
-population_weight = Sub_Problem_Weight(n_problem, population_weight, max_fes, rates=[0.01, 0.03, 0.04])
+population_weight = Sub_Problem_Weight(n_problem, population_weight, max_fes, rates=[0.04, 0.12, 0.16, 0.24])
 problem = Dynamic_Problem(test_problem_set, population_weight, my_noise, max_fes)
 problem.reset()
 for _ in range(5):
@@ -36,6 +36,8 @@ for _ in range(5):
     print(problem.population_weight.get_weight())
     print(problem.population_weight.pos)
     print(problem.fes)
+print(problem.population_weight.cal_batch_weight(problem.fes, cost_fes=2*ps))
+print(problem.noise.make_batch_noise(problem.fes, max_fes, ps, cost_fes=2*ps))
 
 
 
