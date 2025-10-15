@@ -6,15 +6,15 @@ class Gaussian_noise:
         self.end_std = end_std
         self.mean = mean
 
-    def make_noise(self, curr_fes: int, max_fes, ps):  # fes: (ps,1), 返回 (ps,1) 的 np.ndarray
-        fes = np.arange(curr_fes, curr_fes + ps)
-        stds = self.begin_std + (self.end_std - self.begin_std) * fes / max_fes
-        noise = np.random.normal(self.mean, stds)
-        return noise.reshape(-1, 1)
-
-    def make_batch_noise(self, curr_fes: int, max_fes, ps, cost_fes=0):  # noise_matrix: (batch_size,ps)
+    def make_noise(self, curr_fes: int, max_fes, ps, cost_fes=0):  # noise_matrix: (batch_size,ps)
         batch_size = cost_fes // ps
-        fes = np.arange(curr_fes, curr_fes + ps * batch_size).reshape(batch_size, ps)  # (batch_size,ps)
+        fes = np.arange(curr_fes + 1, curr_fes + 1 + ps * batch_size).reshape(batch_size, ps)  # (batch_size,ps)
+        total_std = self.begin_std + (self.end_std - self.begin_std) * fes / max_fes
+        noise = np.random.normal(self.mean, total_std)
+        return noise[0] if batch_size == 1 else noise
+
+    def re_eval_noise(self, curr_fes: int, max_fes, n_archive):  # noise_matrix: (n_archive,)
+        fes = np.arange(curr_fes + 1, curr_fes + 1 + n_archive)
         total_std = self.begin_std + (self.end_std - self.begin_std) * fes / max_fes
         return np.random.normal(self.mean, total_std)
 
