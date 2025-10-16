@@ -23,7 +23,7 @@ train_problem_set = [p[0] for p in train_problem_set]
 test_problem_set = datasets[1]
 test_problem_set = [p[0] for p in test_problem_set]
 max_fes = config.maxFEs
-my_noise = Gaussian_noise(begin_std=0.0, end_std=10.0)
+my_noise = Gaussian_noise(begin_std=0.0, end_std=5.0)
 train_population_weight = Sub_Problem_Weight(len(train_problem_set), opt.ps, max_fes, rates=[0.04, 0.12, 0.16, 0.24])
 train_problem = Dynamic_Problem(train_problem_set, train_population_weight, my_noise, max_fes)
 test_population_weight = Sub_Problem_Weight(len(test_problem_set), opt.ps, max_fes, rates=[0.04, 0.12, 0.16, 0.24])
@@ -31,8 +31,8 @@ test_problem = Dynamic_Problem(test_problem_set, test_population_weight, my_nois
 gleet = GLEET(config)
 train_problem.reset()
 opt.init_population(train_problem)
-action = np.tile([5, 2.05, 2.05], (opt.ps, 1))
-for _ in range(100):
+action = np.tile([0.729, 2.05, 2.05], (opt.ps, 1))
+for _ in range(2000):
     opt.update(action, train_problem)
 print(opt.archive_newval)
 print(len(opt.archive_newval))
