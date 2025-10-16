@@ -365,11 +365,11 @@ class GLEET_Optimizer(Learnable_Optimizer):
         #fea1 = (self.particles['c_cost'] - self.particles['gbest_val']) / self.max_cost  # ps
         # cost archive
         if len(self.archive_val) >= 2:
-            fea1 = np.log10((np.mean(self.archive_val[-1]) + 1e-8) / (np.mean(self.archive_val[-2]) + 1e-8))
+            fea1 = np.log10(np.maximum(abs(np.mean(self.archive_val[-1])), 1e-8) / np.maximum(abs(np.mean(self.archive_val[-2])), 1e-8))
             fea1 = np.clip(fea1, -8, 8) / 8
             fea1 = np.full(self.ps, fea1)
         else:
-            fea1 = np.zeros(self.ps)  # ?真的吗
+            fea1 = np.zeros(self.ps)  # ?
         # cost cur
         fea2 = (self.particles['c_cost'] - np.mean(self.particles['c_cost'])) / (np.std(self.particles['c_cost']) + 1e-8)
         # fes cur_fes
@@ -414,7 +414,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
     def cal_reward(self):
         ratio_per_row = np.mean(self.archive_newval, axis=1) / (np.mean(self.archive_val, axis=1) + 1e-8)  # 先按行平均再比值
         overall_ratio = np.mean(ratio_per_row)
-        reward = np.log10(overall_ratio * np.mean(self.archive_val[-1]) + 1e-8) - np.log10(np.mean(self.archive_val[-1]))
+        reward = np.log10(np.maximum(abs(overall_ratio * np.mean(self.archive_val[-1])), 1e-8)) - np.log10(np.maximum(abs(np.mean(self.archive_val[-1])), 1e-8))
         return reward
 
     def act(self, action):
@@ -536,7 +536,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
         self.archive_pos.append(pop[best_idx])
         self.archive_val.append(val[best_idx])
         all_pos = np.concatenate(self.archive_pos, axis=0)  # (self.gen*5, dim)
-        self.archive_newval = problem.re_eval(all_pos).reshape(len(self.archive_pos), 5)  # 是否需要和archive同步？
+        self.archive_newval = problem.re_eval(all_pos).reshape(len(self.archive_pos), 5)
 
         if self.__config.full_meta_data:
             self.meta_X.append(self.particles['current_position'].copy())
