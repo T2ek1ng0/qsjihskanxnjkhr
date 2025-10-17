@@ -124,10 +124,11 @@ class Actor(nn.Module):
             # clip the action to (0,1)
             action = torch.clamp(policy.sample(), min=0, max=1)
         # get log probability
-        log_prob = policy.log_prob(action)
+        log_prob = policy.log_prob(action)  # (batch_size, ps, n_action)
 
         # The log_prob of each instance is summed up, since it is a joint action for a population
-        log_prob = torch.sum(log_prob, dim=1)
+        log_prob_per_particle = log_prob.sum(dim=-1)  # (batch_size, ps)
+        log_prob = torch.sum(log_prob_per_particle, dim=1)
 
         if require_entropy:
             entropy = policy.entropy()  # for logging only
@@ -231,7 +232,7 @@ class GLEET(PPO_Agent):
         self.config.v_range = 6
 
         self.config.hidden_dim = 16
-        self.config.node_dim = 9
+        self.config.node_dim = 8
         self.config.hidden_dim1_actor = 32
         self.config.hidden_dim2_actor = 8
         self.config.max_sigma = 0.7
@@ -341,7 +342,7 @@ class GLEET(PPO_Agent):
                 bl_val.append(baseline_val)
 
                 # state transient
-                state, rewards, is_end, info = env.step(action.cpu().numpy()[:, :, 0])
+                state, rewards, is_end, info = env.step(action.cpu().numpy())
                 memory.rewards.append(torch.Tensor(rewards).to(self.device))
                 # print('step:{},max_reward:{}'.format(t,torch.max(rewards)))
                 _R += rewards
@@ -517,4 +518,12 @@ class GLEET(PPO_Agent):
 
             for key in required_info.keys():
                 results[key] = getattr(env, required_info[key])
+
+            if env.optimizer.archive_pos:
+                top5_pos = env.optimizer.archive_pos[-1]
+                sgbest = env.problem.re_eval(top5_pos, mode='real').tolist()
+                results['sgbest'] = sgbest
+            else:
+                results['sgbest'] = []
+
             return results
