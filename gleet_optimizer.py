@@ -537,7 +537,9 @@ class GLEET_Optimizer(Learnable_Optimizer):
         best_idx = np.argsort(val)[:5]
         self.archive_pos.append(pop[best_idx])
         self.archive_val.append(val[best_idx])
-        all_pos = np.concatenate(self.archive_pos, axis=0)  # (self.gen*5, dim)
+        self.archive_pos = self.archive_pos[-5:]
+        self.archive_val = self.archive_val[-5:]
+        all_pos = np.concatenate(self.archive_pos, axis=0)  # (5*5, dim)
         self.archive_newval = problem.re_eval(all_pos).reshape(len(self.archive_pos), 5)
 
         if self.__config.full_meta_data:
