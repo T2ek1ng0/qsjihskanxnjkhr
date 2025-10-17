@@ -77,6 +77,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
         self.gen = 0
         self.archive_pos = []
         self.archive_val = []
+        self.archive_prevval = []
         self.archive_newval = []
         self.dim = None
 
@@ -147,6 +148,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
         self.archive_pos.append(rand_pos[best_idx])
         self.archive_val.append(c_cost[best_idx])
         self.archive_newval = self.archive_val.copy()
+        self.archive_prevval = self.archive_val.copy()
 
     def find_nei(self, pop_dist):
         pop_dist[range(self.ps), range(self.ps)] = np.inf
@@ -412,7 +414,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
                               axis=-1)  # ps, 18
 
     def cal_reward(self):
-        ratio_per_row = np.mean(self.archive_newval, axis=1) / (np.mean(self.archive_val, axis=1) + 1e-8)  # 先按行平均再比值
+        ratio_per_row = np.mean(self.archive_newval, axis=1) / (np.mean(self.archive_prevval, axis=1) + 1e-8)
         overall_ratio = np.mean(ratio_per_row)
         reward = np.log10(np.maximum(abs(overall_ratio * np.mean(self.archive_val[-1])), 1e-8)) - np.log10(np.maximum(abs(np.mean(self.archive_val[-1])), 1e-8))
         return reward
@@ -539,8 +541,9 @@ class GLEET_Optimizer(Learnable_Optimizer):
         self.archive_val.append(val[best_idx])
         self.archive_pos = self.archive_pos[-5:]
         self.archive_val = self.archive_val[-5:]
-        all_pos = np.concatenate(self.archive_pos, axis=0)  # (5*5, dim)
-        self.archive_newval = problem.re_eval(all_pos).reshape(len(self.archive_pos), 5)
+        all_pos = np.concatenate(self.archive_pos, axis=0)  # (gen*5, dim)
+        self.archive_prevval = np.concatenate((self.archive_newval, self.archive_val[-1].reshape(1, -1)), axis=0)[-5:]  # F_t-1
+        self.archive_newval = problem.re_eval(all_pos).reshape(len(self.archive_pos), 5)  # F_t
 
         if self.__config.full_meta_data:
             self.meta_X.append(self.particles['current_position'].copy())
