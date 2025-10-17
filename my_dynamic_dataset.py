@@ -37,10 +37,10 @@ class Dynamic_Dataset(Dataset):
         test_problem_set = datasets[1]
         test_problem_set = [p[0] for p in test_problem_set]
         max_fes = config.maxFEs
-        my_noise = Gaussian_noise(begin_std=0.0, end_std=5.0)
-        train_population_weight = Sub_Problem_Weight(len(train_problem_set), max_fes, rates=[0.04, 0.12, 0.16, 0.24])
+        my_noise = Gaussian_noise(begin_std=0.0, end_std=10.0)
+        train_population_weight = Sub_Problem_Weight(len(train_problem_set), max_fes, rates=[0.04, 0.12, 0.16, 0.24, 0.60])
         train_problem = Dynamic_Problem(train_problem_set, train_population_weight, my_noise, max_fes)
-        test_population_weight = Sub_Problem_Weight(len(test_problem_set), max_fes, rates=[0.04, 0.12, 0.16, 0.24])
+        test_population_weight = Sub_Problem_Weight(len(test_problem_set), max_fes, rates=[0.04, 0.12, 0.16, 0.24, 0.60])
         test_problem = Dynamic_Problem(test_problem_set, test_population_weight, my_noise, max_fes)
         train_set = [train_problem]
         test_set = [test_problem]

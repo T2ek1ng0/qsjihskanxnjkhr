@@ -41,6 +41,8 @@ class Dynamic_Problem:
         self.ps = x.shape[0]
         noise = self.noise.make_noise(self.fes, self.maxfes, self.ps, self.ps)  # (ps,1)
         weights = self.population_weight.cal_weight(self.ps, self.fes, self.ps, change_flag=True)  # (ps,n_problem)
+        self.ub = self.problem_list[self.population_weight.pos].ub
+        self.lb = self.problem_list[self.population_weight.pos].lb
         fitness = np.zeros((self.ps, self.n_problem))
         for prob_idx, problem in enumerate(self.problem_list):
             x_input = x[:, :problem.dim]
