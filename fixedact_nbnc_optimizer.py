@@ -1,9 +1,9 @@
 from scipy.spatial import distance
-from metaevobox.environment.optimizer.learnable_optimizer import Learnable_Optimizer
+from metaevobox.environment.optimizer.basic_optimizer import Basic_Optimizer
 import numpy as np
 
 
-class GLEET_Optimizer(Learnable_Optimizer):
+class basic_nbnc_Optimizer(Basic_Optimizer):
     """
     # Introduction
     GLEET is a **G**eneralizable **L**earning-based **E**xploration-**E**xploitation **T**radeoff framework, which could explicitly control the exploration-exploitation tradeoff hyper-parameters of a given EC algorithm to solve a class of problems via reinforcement learning.
@@ -88,7 +88,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
         - str: The name of the optimizer, "GLEET_Optimizer".
         """
 
-        return "GLEET_Optimizer"
+        return "fixed-parameter-nbnc"
 
     def initialize_particles(self, problem):
         """
@@ -417,18 +417,13 @@ class GLEET_Optimizer(Learnable_Optimizer):
         reward = np.log10(np.maximum(abs(overall_ratio * np.mean(self.archive_val[-1])), 1e-8)) - np.log10(np.maximum(abs(np.mean(self.archive_val[-1])), 1e-8))
         return reward
 
-    def act(self, action):
-        if action.ndim != 2:
-            raise ValueError(f"Expected 2D action (ps, n_action), but got {action.shape} here.")
-        w_lb, w_ub = 0.4, 0.9
-        c_lb, c_ub = 0.5, 2.5
-        N = action.shape[0]  # ps
-        w = w_lb + (w_ub - w_lb) * action[:, 0:1]
-        c1 = c_lb + (c_ub - c_lb) * action[:, 1:2]
-        c2 = c_lb + (c_ub - c_lb) * action[:, 2:3]
-        return w, c1, c2  # (ps,)
+    def fixed_act(self):
+        w = 0.9 - (0.9 - 0.4) * (self.gen / self.max_gen)
+        c1 = 2.05
+        c2 = 2.05
+        return w, c1, c2
 
-    def update(self, action, problem, per=0.5, bt=0.25):
+    def update(self, problem, per=0.5, bt=0.25):
         """
         # Introduction
         Updates the state of the particle swarm optimizer (PSO) for one iteration based on the given action and problem definition. This includes updating particle velocities and positions, handling boundary conditions, evaluating costs, updating personal and global bests, managing stagnation counters, calculating rewards, and preparing the next state for further optimization or reinforcement learning.
@@ -461,7 +456,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
 
         r1 = np.random.rand(self.ps, self.dim)
         r2 = np.random.rand(self.ps, self.dim)
-        w, c1, c2 = self.act(action)
+        w, c1, c2 = self.fixed_act()
         v = w * v + c1 * r1 * (pbest - pop) + c2 * r2 * (guide_vec - pop)
         new_velocity = np.clip(v, -self.max_velocity, self.max_velocity)
 
@@ -578,3 +573,18 @@ class GLEET_Optimizer(Learnable_Optimizer):
 
         info = {}
         return next_state, reward, is_end, info
+
+    def run_episode(self, problem):
+        self.init_population(problem)
+        while self.fes < self.max_fes:
+            self.update(problem)
+        results = {'cost': self.particles['gbest_val'], 'fes': self.fes}
+        pop = self.particles['current_position']
+        sgbest_idx = self.particles['sgbest_idx']
+        sgbest = [problem.re_eval(pop[sg].reshape(1, -1), mode='real').item() for sg in sgbest_idx]
+        results['sgbest'] = sgbest
+
+        if self.__config.full_meta_data:
+            metadata = {'X': self.meta_X, 'Cost': self.meta_Cost}
+            results['metadata'] = metadata
+        return results
