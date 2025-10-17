@@ -52,7 +52,7 @@ class Dynamic_Problem:
         result = np.sum(weights * fitness, axis=1)
         return result + noise
 
-    def re_eval(self, x, mode='noise'):  # (self.gen*5, dim)
+    def re_eval(self, x, mode='noise'):  # (gen*5, dim)
         n_archive = x.shape[0]
         weights = self.population_weight.re_eval_weight(self.fes, n_archive)
         noise = self.noise.re_eval_noise(self.fes, self.maxfes, n_archive)
