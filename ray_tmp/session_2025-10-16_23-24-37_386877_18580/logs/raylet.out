@@ -1,0 +1,297 @@
+[2025-10-16 23:24:38,795 I 38064 68044] (raylet.exe) main.cc:219: Setting cluster ID to: 16250b66faba959772390e00ca0064714cd2c94e5094f46daea1bffb
+[2025-10-16 23:24:38,799 I 38064 68044] (raylet.exe) main.cc:492: Raylet is not set to kill unknown children.
+[2025-10-16 23:24:38,799 I 38064 68044] (raylet.exe) io_service_pool.cc:35: IOServicePool is running with 1 io_service.
+[2025-10-16 23:24:38,800 I 38064 68044] (raylet.exe) main.cc:492: Setting node ID node_id=0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd
+[2025-10-16 23:24:38,800 I 38064 68044] (raylet.exe) store_runner.cc:51: Allowing the Plasma store to use up to 1.05263GB of memory.
+[2025-10-16 23:24:38,800 I 38064 68044] (raylet.exe) store_runner.cc:67: Starting object store with directory C:\Users\Smoluanu\AppData\Local\Temp, fallback D:\Code\dynamic_class/ray_tmp/, and huge page support disabled
+[2025-10-16 23:24:38,801 I 38064 12328] (raylet.exe) store.cc:583: Plasma store debug dump: 
+Current usage: 0 / 1.05263 GB
+- num bytes created total: 0
+0 pending objects of total size 0MB
+- objects spillable: 0
+- bytes spillable: 0
+- objects unsealed: 0
+- bytes unsealed: 0
+- objects in use: 0
+- bytes in use: 0
+- objects evictable: 0
+- bytes evictable: 0
+
+- objects created by worker: 0
+- bytes created by worker: 0
+- objects restored: 0
+- bytes restored: 0
+- objects received: 0
+- bytes received: 0
+- objects errored: 0
+- bytes errored: 0
+
+[2025-10-16 23:24:38,807 I 38064 68044] (raylet.exe) grpc_server.cc:137: ObjectManager server started, listening on port 49383.
+[2025-10-16 23:24:38,808 I 38064 68044] (raylet.exe) worker_killing_policy.cc:101: Running GroupByOwner policy.
+[2025-10-16 23:24:38,808 W 38064 68044] (raylet.exe) memory_monitor.cc:68: Not running MemoryMonitor. It is currently supported only on Linux.
+[2025-10-16 23:24:38,808 I 38064 68044] (raylet.exe) node_manager.cc:298: Initializing NodeManager node_id=0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd
+[2025-10-16 23:24:38,809 I 38064 68044] (raylet.exe) grpc_server.cc:137: NodeManager server started, listening on port 49385.
+[2025-10-16 23:24:38,814 I 38064 21832] (raylet.exe) agent_manager.cc:78: Monitor agent process with name dashboard_agent/15724
+[2025-10-16 23:24:38,818 I 38064 81732] (raylet.exe) agent_manager.cc:78: Monitor agent process with name runtime_env_agent
+[2025-10-16 23:24:38,821 I 38064 68044] (raylet.exe) event.cc:500: Ray Event initialized for RAYLET
+[2025-10-16 23:24:38,821 I 38064 68044] (raylet.exe) event.cc:331: Set ray event level to warning
+[2025-10-16 23:24:38,822 I 38064 68044] (raylet.exe) raylet.cc:134: Raylet of id, 0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd started. Raylet consists of node_manager and object_manager. node_manager address: 127.0.0.1:49385 object_manager address: 127.0.0.1:49383 hostname: LAPTOP-O8RA8S5A
+[2025-10-16 23:24:38,824 I 38064 68044] (raylet.exe) node_manager.cc:540: [state-dump] NodeManager:
+[state-dump] Node ID: 0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd
+[state-dump] Node name: 127.0.0.1
+[state-dump] InitialConfigResources: {object_store_memory: 1.05263e+09, CPU: 17, node:127.0.0.1: 1, memory: 2.45614e+09, node:__internal_head__: 1}
+[state-dump] ClusterTaskManager:
+[state-dump] ========== Node: 0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd =================
+[state-dump] Infeasible queue length: 0
+[state-dump] Schedule queue length: 0
+[state-dump] Dispatch queue length: 0
+[state-dump] num_waiting_for_resource: 0
+[state-dump] num_waiting_for_plasma_memory: 0
+[state-dump] num_waiting_for_remote_node_resources: 0
+[state-dump] num_worker_not_started_by_job_config_not_exist: 0
+[state-dump] num_worker_not_started_by_registration_timeout: 0
+[state-dump] num_tasks_waiting_for_workers: 0
+[state-dump] num_cancelled_tasks: 0
+[state-dump] cluster_resource_scheduler state: 
+[state-dump] Local id: -4027462358478455658 Local resources: {"total":{memory: [24561352710000], node:__internal_head__: [10000], node:127.0.0.1: [10000], object_store_memory: [10526294010000], CPU: [170000]}}, "available": {CPU: [170000], memory: [24561352710000], node:__internal_head__: [10000], node:127.0.0.1: [10000], object_store_memory: [10526294010000]}}, "labels":{"ray.io/node_id":"0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd",} is_draining: 0 is_idle: 1 Cluster resources: node id: -4027462358478455658{"total":{object_store_memory: 10526294010000, node:127.0.0.1: 10000, CPU: 170000, node:__internal_head__: 10000, memory: 24561352710000}}, "available": {node:127.0.0.1: 10000, CPU: 170000, memory: 24561352710000, object_store_memory: 10526294010000, node:__internal_head__: 10000}}, "labels":{"ray.io/node_id":"0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd",}, "is_draining": 0, "draining_deadline_timestamp_ms": -1} { "placement group locations": [], "node to bundles": []}
+[state-dump] Waiting tasks size: 0
+[state-dump] Number of executing tasks: 0
+[state-dump] Number of pinned task arguments: 0
+[state-dump] Number of total spilled tasks: 0
+[state-dump] Number of spilled waiting tasks: 0
+[state-dump] Number of spilled unschedulable tasks: 0
+[state-dump] Resource usage {
+[state-dump] }
+[state-dump] Backlog Size per scheduling descriptor :{workerId: num backlogs}:
+[state-dump] 
+[state-dump] Running tasks by scheduling class:
+[state-dump] ==================================================
+[state-dump] 
+[state-dump] ClusterResources:
+[state-dump] LocalObjectManager:
+[state-dump] - num pinned objects: 0
+[state-dump] - pinned objects size: 0
+[state-dump] - num objects pending restore: 0
+[state-dump] - num objects pending spill: 0
+[state-dump] - num bytes pending spill: 0
+[state-dump] - num bytes currently spilled: 0
+[state-dump] - cumulative spill requests: 0
+[state-dump] - cumulative restore requests: 0
+[state-dump] - spilled objects pending delete: 0
+[state-dump] 
+[state-dump] ObjectManager:
+[state-dump] - num local objects: 0
+[state-dump] - num unfulfilled push requests: 0
+[state-dump] - num object pull requests: 0
+[state-dump] - num chunks received total: 0
+[state-dump] - num chunks received failed (all): 0
+[state-dump] - num chunks received failed / cancelled: 0
+[state-dump] - num chunks received failed / plasma error: 0
+[state-dump] Event stats:
+[state-dump] Global stats: 0 total (0 active)
+[state-dump] Queueing time: mean = -nan(ind) s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] Execution time:  mean = -nan(ind) s, total = 0.000 s
+[state-dump] Event stats:
+[state-dump] PushManager:
+[state-dump] - num pushes in flight: 0
+[state-dump] - num chunks in flight: 0
+[state-dump] - num chunks remaining: 0
+[state-dump] - max chunks allowed: 409
+[state-dump] OwnershipBasedObjectDirectory:
+[state-dump] - num listeners: 0
+[state-dump] - cumulative location updates: 2333181740637516645
+[state-dump] - num location updates per second: 8315182520709899354112.000
+[state-dump] - num location lookups per second: 6998721815798243917824.000
+[state-dump] - num locations added per second: 7236833184642769092608.000
+[state-dump] - num locations removed per second: 7813590758054715981824.000
+[state-dump] BufferPool:
+[state-dump] - create buffer state map size: 0
+[state-dump] PullManager:
+[state-dump] - num bytes available for pulled objects: 1052629401
+[state-dump] - num bytes being pulled (all): 0
+[state-dump] - num bytes being pulled / pinned: 0
+[state-dump] - get request bundles: BundlePullRequestQueue{0 total, 0 active, 0 inactive, 0 unpullable}
+[state-dump] - wait request bundles: BundlePullRequestQueue{0 total, 0 active, 0 inactive, 0 unpullable}
+[state-dump] - task request bundles: BundlePullRequestQueue{0 total, 0 active, 0 inactive, 0 unpullable}
+[state-dump] - first get request bundle: N/A
+[state-dump] - first wait request bundle: N/A
+[state-dump] - first task request bundle: N/A
+[state-dump] - num objects queued: 0
+[state-dump] - num objects actively pulled (all): 0
+[state-dump] - num objects actively pulled / pinned: 0
+[state-dump] - num bundles being pulled: 0
+[state-dump] - num pull retries: 0
+[state-dump] - max timeout seconds: 0
+[state-dump] - max timeout request is already processed. No entry.
+[state-dump] 
+[state-dump] WorkerPool:
+[state-dump] - registered jobs: 0
+[state-dump] - process_failed_job_config_missing: 0
+[state-dump] - process_failed_rate_limited: 0
+[state-dump] - process_failed_pending_registration: 0
+[state-dump] - process_failed_runtime_env_setup_failed: 0
+[state-dump] - num PYTHON workers: 0
+[state-dump] - num PYTHON drivers: 0
+[state-dump] - num PYTHON pending start requests: 0
+[state-dump] - num PYTHON pending registration requests: 0
+[state-dump] - num object spill callbacks queued: 0
+[state-dump] - num object restore queued: 0
+[state-dump] - num util functions queued: 0
+[state-dump] - num idle workers: 0
+[state-dump] TaskDependencyManager:
+[state-dump] - task deps map size: 0
+[state-dump] - get req map size: 0
+[state-dump] - wait req map size: 0
+[state-dump] - local objects map size: 0
+[state-dump] WaitManager:
+[state-dump] - num active wait requests: 0
+[state-dump] Subscriber:
+[state-dump] Channel WORKER_OBJECT_EVICTION
+[state-dump] - cumulative subscribe requests: 0
+[state-dump] - cumulative unsubscribe requests: 0
+[state-dump] - active subscribed publishers: 0
+[state-dump] - cumulative published messages: 0
+[state-dump] - cumulative processed messages: 0
+[state-dump] Channel WORKER_OBJECT_LOCATIONS_CHANNEL
+[state-dump] - cumulative subscribe requests: 0
+[state-dump] - cumulative unsubscribe requests: 0
+[state-dump] - active subscribed publishers: 0
+[state-dump] - cumulative published messages: 0
+[state-dump] - cumulative processed messages: 0
+[state-dump] Channel WORKER_REF_REMOVED_CHANNEL
+[state-dump] - cumulative subscribe requests: 0
+[state-dump] - cumulative unsubscribe requests: 0
+[state-dump] - active subscribed publishers: 0
+[state-dump] - cumulative published messages: 0
+[state-dump] - cumulative processed messages: 0
+[state-dump] num async plasma notifications: 0
+[state-dump] Remote node managers: 
+[state-dump] Event stats:
+[state-dump] Global stats: 27 total (13 active)
+[state-dump] Queueing time: mean = 1.904 ms, max = 13.241 ms, min = 14.000 us, total = 51.399 ms
+[state-dump] Execution time:  mean = 970.063 us, total = 26.192 ms
+[state-dump] Event stats:
+[state-dump] 	PeriodicalRunner.RunFnPeriodically - 11 total (2 active, 1 running), Execution time: mean = 125.436 us, total = 1.380 ms, Queueing time: mean = 4.670 ms, max = 13.241 ms, min = 29.300 us, total = 51.366 ms
+[state-dump] 	ray::rpc::NodeInfoGcsService.grpc_client.RegisterNode.OnReplyReceived - 1 total (0 active), Execution time: mean = 267.100 us, total = 267.100 us, Queueing time: mean = 14.000 us, max = 14.000 us, min = 14.000 us, total = 14.000 us
+[state-dump] 	NodeManager.CheckForUnexpectedWorkerDisconnects - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	NodeManager.deadline_timer.flush_free_objects - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	ClusterResourceManager.ResetRemoteNodeView - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch.OnReplyReceived - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	NodeManager.deadline_timer.spill_objects_when_over_threshold - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	NodeManager.deadline_timer.debug_state_dump - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 1 total (0 active), Execution time: mean = 439.600 us, total = 439.600 us, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	ray::rpc::InternalKVGcsService.grpc_client.GetInternalConfig - 1 total (0 active), Execution time: mean = 466.800 us, total = 466.800 us, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	NodeManager.GCTaskFailureReason - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	NodeManager.ScheduleAndDispatchTasks - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	ray::rpc::NodeInfoGcsService.grpc_client.RegisterNode - 1 total (0 active), Execution time: mean = 759.000 us, total = 759.000 us, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	RayletWorkerPool.deadline_timer.kill_idle_workers - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	ray::rpc::InternalKVGcsService.grpc_client.GetInternalConfig.OnReplyReceived - 1 total (0 active), Execution time: mean = 22.879 ms, total = 22.879 ms, Queueing time: mean = 19.100 us, max = 19.100 us, min = 19.100 us, total = 19.100 us
+[state-dump] 	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] 	NodeManager.deadline_timer.record_metrics - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+[state-dump] DebugString() time ms: 0
+[state-dump] 
+[state-dump] 
+[2025-10-16 23:24:38,825 I 38064 68044] (raylet.exe) accessor.cc:760: Received notification for node, IsAlive = 1 node_id=0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd
+[2025-10-16 23:24:38,906 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 25020, the token is 0
+[2025-10-16 23:24:38,909 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 45184, the token is 1
+[2025-10-16 23:24:38,913 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 67100, the token is 2
+[2025-10-16 23:24:38,918 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 65292, the token is 3
+[2025-10-16 23:24:38,926 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 61740, the token is 4
+[2025-10-16 23:24:38,931 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 9624, the token is 5
+[2025-10-16 23:24:38,935 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 64004, the token is 6
+[2025-10-16 23:24:38,940 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 3980, the token is 7
+[2025-10-16 23:24:38,944 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 41148, the token is 8
+[2025-10-16 23:24:38,949 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 57916, the token is 9
+[2025-10-16 23:24:38,955 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 23476, the token is 10
+[2025-10-16 23:24:38,960 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 9476, the token is 11
+[2025-10-16 23:24:38,965 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 16412, the token is 12
+[2025-10-16 23:24:38,971 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 14660, the token is 13
+[2025-10-16 23:24:38,977 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 82628, the token is 14
+[2025-10-16 23:24:38,982 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 41608, the token is 15
+[2025-10-16 23:24:38,988 I 38064 68044] (raylet.exe) worker_pool.cc:522: Started worker process with pid 77136, the token is 16
+[2025-10-16 23:24:41,143 I 38064 12328] (raylet.exe) object_store.cc:38: Object store current usage 8e-09 / 1.05263 GB.
+[2025-10-16 23:24:41,874 I 38064 68044] (raylet.exe) worker_pool.cc:719: Job 01000000 already started in worker pool.
+[2025-10-16 23:24:42,028 I 38064 68044] (raylet.exe) local_resource_manager.cc:292: Object store memory is not idle.
+[2025-10-16 23:24:42,282 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=2095adb3e7bc2b2f766396c49c654936c09fe22d956580f17057b7a4
+[2025-10-16 23:24:42,282 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=26067762807c2b6e27ac6874786fb667c8a1e56b4362d7e054b26220
+[2025-10-16 23:24:42,284 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:42,284 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:42,484 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=f2fe0a2de0ddda9bb91622d15bb50438f85593667620cabb3bd4f0a2
+[2025-10-16 23:24:42,484 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=45b4f86044b21cec22d81430abc2d6c83a4055f07d02c6fea7dc6b52
+[2025-10-16 23:24:42,486 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:42,686 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=ab3422b52328683f95d9bad2c0dc1c9621bcbfb2fe48f5a97166a412
+[2025-10-16 23:24:42,743 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:42,889 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=e2f965be6d0e7f67471e11358e12170c39e7a213a9b2a51815ab50a2
+[2025-10-16 23:24:42,890 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=7bd74260fde8620ddd3c07f56c1946f3f0592ffcc77aa9a9b2ed3752
+[2025-10-16 23:24:42,890 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=2e5fb193e51cefb342d7658c542641fa8f66fd4dab5cd8ca3b8de34e
+[2025-10-16 23:24:42,891 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=8f17db81c2cb999f0eecd7210de1e39d9dabaaa1a95f2964af0b85c2
+[2025-10-16 23:24:42,891 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=5aa9280208bdd46e0bf8864a80ce867d2fef368120e063019a8d8d39
+[2025-10-16 23:24:42,892 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=530abc5ac865b7b0078c1233018596be6c478c2e8e6ecd48c1bee296
+[2025-10-16 23:24:42,893 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=cb139684be6a67f3b86f09afee9aa3b49f854dc38babe11b9b39c3f6
+[2025-10-16 23:24:42,893 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:42,894 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=c6001a360d8f84dfa1562c0808078f9adc8a0d956b3de1b15a2eb59b
+[2025-10-16 23:24:42,894 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=b983fe89520abb2abd2dbbfca07b7c7547141970da5903670817a2fc
+[2025-10-16 23:24:42,894 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=fee06204c93201c9359e8e1a47dcea4fc81abf5e8a99a9f92486990d
+[2025-10-16 23:24:42,895 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=7294123aa66ded411b2fc5fbf024f9cd7b026ce81f70cdaf50c87d23
+[2025-10-16 23:24:42,897 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:42,931 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:42,946 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:43,148 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:43,149 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:43,149 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:43,149 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:43,149 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:43,149 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:43,149 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:43,149 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:50,878 W 38064 75212] (raylet.exe) metric_exporter.cc:105: [1] Export metrics to agent failed: RpcError: RPC Error message: failed to connect to all addresses; last error: UNAVAILABLE: ipv4:127.0.0.1:65386: Connection refused; RPC Error details: . This won't affect Ray, but you can lose metrics from the cluster.
+[2025-10-16 23:24:57,036 I 38064 68044] (raylet.exe) local_resource_manager.cc:288: Object store memory is idle.
+[2025-10-16 23:24:57,574 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=3, has_creation_task_exception=false worker_id=01000000ffffffffffffffffffffffffffffffffffffffffffffffff
+[2025-10-16 23:24:57,574 I 38064 68044] (raylet.exe) node_manager.cc:1728: Driver (pid=18580) is disconnected. worker_id=01000000ffffffffffffffffffffffffffffffffffffffffffffffff job_id=01000000
+[2025-10-16 23:24:57,575 I 38064 68044] (raylet.exe) worker_pool.cc:719: Job 01000000 already started in worker pool.
+[2025-10-16 23:24:57,691 I 38064 68044] (raylet.exe) worker_pool.cc:1224: Force exiting worker whose job has exited 994f6f01032937e2b953476636d45e2a1ef95eb3c3e96ffda894fba4
+[2025-10-16 23:24:57,706 I 38064 68044] (raylet.exe) node_manager.cc:1636: Disconnecting client, graceful=true, disconnect_type=1, has_creation_task_exception=false worker_id=994f6f01032937e2b953476636d45e2a1ef95eb3c3e96ffda894fba4
+[2025-10-16 23:24:57,769 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 10054: 远程主机强迫关闭了一个现有的连接。
+[2025-10-16 23:24:57,833 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:58,053 I 38064 68044] (raylet.exe) main.cc:499: received SIGTERM. Existing local drain request = None
+[2025-10-16 23:24:58,053 I 38064 68044] (raylet.exe) main.cc:300: Raylet graceful shutdown triggered, reason = EXPECTED_TERMINATION, reason message = received SIGTERM
+[2025-10-16 23:24:58,053 I 38064 68044] (raylet.exe) main.cc:303: Shutting down...
+[2025-10-16 23:24:58,053 I 38064 68044] (raylet.exe) accessor.cc:511: Unregistering node node_id=0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd
+[2025-10-16 23:24:58,055 I 38064 68044] (raylet.exe) accessor.cc:524: Finished unregistering node info, status = OK node_id=0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd
+[2025-10-16 23:24:58,055 W 38064 12328] (raylet.exe) store.cc:371: Disconnecting client due to connection error with code 2: End of file
+[2025-10-16 23:24:58,056 I 38064 68044] (raylet.exe) agent_manager.cc:113: Killing agent dashboard_agent/15724, pid 53860.
+[2025-10-16 23:24:58,064 I 38064 81732] (raylet.exe) agent_manager.cc:80: Agent process with name runtime_env_agent exited, exit code -1073741510.
+[2025-10-16 23:24:58,064 E 38064 81732] (raylet.exe) agent_manager.cc:84: The raylet exited immediately because one Ray agent failed, agent_name = runtime_env_agent.
+The raylet fate shares with the agent. This can happen because
+- The version of `grpcio` doesn't follow Ray's requirement. Agent can segfault with the incorrect `grpcio` version. Check the grpcio version `pip freeze | grep grpcio`.
+- The agent failed to start because of unexpected error or port conflict. Read the log `cat /tmp/ray/session_latest/logs/{dashboard_agent|runtime_env_agent}.log`. You can find the log file structure here https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#logging-directory-structure.
+- The agent is killed by the OS (e.g., out of memory).
+[2025-10-16 23:24:58,065 I 38064 21832] (raylet.exe) agent_manager.cc:80: Agent process with name dashboard_agent/15724 exited, exit code -1073741510.
+[2025-10-16 23:24:58,065 I 38064 68044] (raylet.exe) agent_manager.cc:113: Killing agent runtime_env_agent, pid 52324.
+[2025-10-16 23:24:58,065 I 38064 68044] (raylet.exe) io_service_pool.cc:47: IOServicePool is stopped.
+[2025-10-16 23:24:58,267 I 38064 68044] (raylet.exe) stats.h:120: Stats module has shutdown.
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497: *** SIGSEGV received at time=1760628298 ***
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF683325C89  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FFDAF57F47F  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FFDC5B066AF  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FFDC5A29CD7  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FFDC5B05FEE  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682BBDB8A  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682CF2914  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682CF137F  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682CF485D  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682BBF472  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682BBA660  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682A21204  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682A52A38  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682A70139  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682D48C19  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682D41A7A  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF682D41FB4  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF68329F86C  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF6832A4AF4  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF6832A3E53  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF6829CFCD9  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FF6832E0E58  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FFDC3D7E8D7  (unknown)  (unknown)
+[2025-10-16 23:24:58,267 E 38064 68044] (raylet.exe) logging.cc:497:     @   00007FFDC5A3C5DC  (unknown)  (unknown)
