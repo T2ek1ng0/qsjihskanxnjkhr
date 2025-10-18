@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Gaussian_noise:
     def __init__(self, begin_std, end_std, mean=0):
         self.begin_std = begin_std

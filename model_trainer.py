@@ -1,4 +1,3 @@
-import numpy as np
 from metaevobox import Config, Trainer
 from metaevobox.environment.problem.utils import construct_problem_set
 from gleet_optimizer import GLEET_Optimizer
