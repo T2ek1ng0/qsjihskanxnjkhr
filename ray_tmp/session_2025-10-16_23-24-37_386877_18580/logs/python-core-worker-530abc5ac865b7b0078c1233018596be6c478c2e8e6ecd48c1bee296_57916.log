@@ -1,0 +1,80 @@
+[2025-10-16 23:24:41,701 I 57916 40764] core_worker_process.cc:187: Constructing CoreWorkerProcess. pid: 57916
+[2025-10-16 23:24:41,704 I 57916 40764] io_service_pool.cc:35: IOServicePool is running with 1 io_service.
+[2025-10-16 23:24:41,705 I 57916 40764] grpc_server.cc:137: worker server started, listening on port 49768.
+[2025-10-16 23:24:41,707 I 57916 40764] core_worker.cc:526: Initializing worker at address: 127.0.0.1:49768 worker_id=530abc5ac865b7b0078c1233018596be6c478c2e8e6ecd48c1bee296 node_id=0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd
+[2025-10-16 23:24:41,708 I 57916 40764] task_event_buffer.cc:281: Reporting task events to GCS every 1000ms.
+[2025-10-16 23:24:41,709 I 57916 7592] accessor.cc:760: Received notification for node, IsAlive = 1 node_id=0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd
+[2025-10-16 23:24:41,709 I 57916 7592] core_worker.cc:5080: Number of alive nodes:1
+[2025-10-16 23:24:41,709 I 57916 7592] core_worker.cc:914: Event stats:
+
+
+Global stats: 12 total (4 active)
+Queueing time: mean = 18.600 us, max = 149.300 us, min = 12.000 us, total = 223.200 us
+Execution time:  mean = 108.383 us, total = 1.301 ms
+Event stats:
+	PeriodicalRunner.RunFnPeriodically - 3 total (1 active, 1 running), Execution time: mean = 9.000 us, total = 27.000 us, Queueing time: mean = 57.867 us, max = 149.300 us, min = 24.300 us, total = 173.600 us
+	Publisher.CheckDeadSubscribers - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch.OnReplyReceived - 1 total (0 active), Execution time: mean = 104.300 us, total = 104.300 us, Queueing time: mean = 12.000 us, max = 12.000 us, min = 12.000 us, total = 12.000 us
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeInfo.OnReplyReceived - 1 total (0 active), Execution time: mean = 71.500 us, total = 71.500 us, Queueing time: mean = 15.200 us, max = 15.200 us, min = 15.200 us, total = 15.200 us
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeInfo - 1 total (0 active), Execution time: mean = 346.200 us, total = 346.200 us, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo.OnReplyReceived - 1 total (0 active), Execution time: mean = 22.900 us, total = 22.900 us, Queueing time: mean = 22.400 us, max = 22.400 us, min = 22.400 us, total = 22.400 us
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 1 total (0 active), Execution time: mean = 329.400 us, total = 329.400 us, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	CoreWorker.ExitIfParentRayletDies - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (0 active), Execution time: mean = 399.300 us, total = 399.300 us, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+
+-----------------
+Task execution event stats:
+
+Global stats: 0 total (0 active)
+Queueing time: mean = -nan(ind) s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+Execution time:  mean = -nan(ind) s, total = 0.000 s
+Event stats:
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 4 total (1 active)
+Queueing time: mean = 14.550 us, max = 29.800 us, min = 28.400 us, total = 58.200 us
+Execution time:  mean = 154.950 us, total = 619.800 us
+Event stats:
+	CoreWorker.deadline_timer.flush_task_events - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 1 total (0 active), Execution time: mean = 495.600 us, total = 495.600 us, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 1 total (0 active), Execution time: mean = 20.200 us, total = 20.200 us, Queueing time: mean = 29.800 us, max = 29.800 us, min = 29.800 us, total = 29.800 us
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 104.000 us, total = 104.000 us, Queueing time: mean = 28.400 us, max = 28.400 us, min = 28.400 us, total = 28.400 us
+Other Stats:
+	grpc_in_progress:0
+	current number of task status events in buffer: 0
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0 MiB
+	total number of task attempts sent: 0
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+
+
+[2025-10-16 23:24:41,712 I 57916 40764] event.cc:500: Ray Event initialized for CORE_WORKER
+[2025-10-16 23:24:41,712 I 57916 40764] event.cc:500: Ray Event initialized for EXPORT_TASK
+[2025-10-16 23:24:41,712 I 57916 40764] event.cc:331: Set ray event level to warning
+[2025-10-16 23:24:42,889 I 57916 7592] core_worker.cc:1171: Exit signal received, this process will exit after all outstanding tasks have finished, exit_type=INTENDED_SYSTEM_EXIT, detail=Worker exits because it was idle (it doesn't have objects it owns while no task or actor has been scheduled) for a long time.
+[2025-10-16 23:24:42,891 I 57916 40764] core_worker.cc:1102: Sending disconnect message to the local raylet.
+[2025-10-16 23:24:42,891 I 57916 40764] raylet_client.cc:73: RayletClient::Disconnect, exit_type=INTENDED_SYSTEM_EXIT, exit_detail=Worker exits because it was idle (it doesn't have objects it owns while no task or actor has been scheduled) for a long time., has creation_task_exception_pb_bytes=0
+[2025-10-16 23:24:42,892 I 57916 40764] core_worker.cc:1108: Disconnected from the local raylet.
+[2025-10-16 23:24:42,892 I 57916 40764] core_worker.cc:1017: Shutting down a core worker.
+[2025-10-16 23:24:42,892 I 57916 40764] task_event_buffer.cc:292: Shutting down TaskEventBuffer.
+[2025-10-16 23:24:42,892 I 57916 56684] task_event_buffer.cc:260: Task event buffer io service stopped.
+[2025-10-16 23:24:42,893 I 57916 40764] core_worker.cc:1039: Waiting for joining a core worker io thread. If it hangs here, there might be deadlock or a high load in the core worker io service.
+[2025-10-16 23:24:42,893 I 57916 7592] core_worker.cc:1275: Core worker main io service stopped.
+[2025-10-16 23:24:42,894 I 57916 40764] core_worker.cc:1051: Disconnecting a GCS client.
+[2025-10-16 23:24:42,894 I 57916 40764] core_worker.cc:1058: Core worker ready to be deallocated.
+[2025-10-16 23:24:42,894 I 57916 40764] core_worker_process.cc:330: Task execution loop terminated. Removing the global worker.
+[2025-10-16 23:24:42,894 I 57916 40764] core_worker.cc:1008: Core worker is destructed
+[2025-10-16 23:24:42,894 I 57916 40764] task_event_buffer.cc:292: Shutting down TaskEventBuffer.
+[2025-10-16 23:24:43,149 I 57916 40764] core_worker_process.cc:232: Destructing CoreWorkerProcessImpl. pid: 57916
+[2025-10-16 23:24:43,149 I 57916 40764] io_service_pool.cc:47: IOServicePool is stopped.
+[2025-10-16 23:24:43,551 I 57916 40764] stats.h:120: Stats module has shutdown.
+[2025-10-16 23:24:43,579 W 57916 40764] core_worker_process.cc:246: The core worker process is not initialized yet or already shutdown.

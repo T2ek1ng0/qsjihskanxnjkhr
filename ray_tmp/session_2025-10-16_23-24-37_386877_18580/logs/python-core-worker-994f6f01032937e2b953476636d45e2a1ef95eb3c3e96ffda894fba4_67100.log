@@ -1,0 +1,66 @@
+[2025-10-16 23:24:41,129 I 67100 45052] core_worker_process.cc:187: Constructing CoreWorkerProcess. pid: 67100
+[2025-10-16 23:24:41,135 I 67100 45052] io_service_pool.cc:35: IOServicePool is running with 1 io_service.
+[2025-10-16 23:24:41,138 I 67100 45052] grpc_server.cc:137: worker server started, listening on port 49406.
+[2025-10-16 23:24:41,140 I 67100 45052] core_worker.cc:526: Initializing worker at address: 127.0.0.1:49406 worker_id=994f6f01032937e2b953476636d45e2a1ef95eb3c3e96ffda894fba4 node_id=0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd
+[2025-10-16 23:24:41,141 I 67100 45052] task_event_buffer.cc:281: Reporting task events to GCS every 1000ms.
+[2025-10-16 23:24:41,144 I 67100 2852] core_worker.cc:914: Event stats:
+
+
+Global stats: 11 total (5 active)
+Queueing time: mean = 213.773 us, max = 1.375 ms, min = 260.600 us, total = 2.352 ms
+Execution time:  mean = 192.864 us, total = 2.122 ms
+Event stats:
+	PeriodicalRunner.RunFnPeriodically - 3 total (1 active, 1 running), Execution time: mean = 12.500 us, total = 37.500 us, Queueing time: mean = 559.867 us, max = 1.375 ms, min = 304.500 us, total = 1.680 ms
+	CoreWorker.ExitIfParentRayletDies - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo - 1 total (0 active), Execution time: mean = 977.300 us, total = 977.300 us, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	Publisher.CheckDeadSubscribers - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberPoll - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch.OnReplyReceived - 1 total (0 active), Execution time: mean = 357.000 us, total = 357.000 us, Queueing time: mean = 260.600 us, max = 260.600 us, min = 260.600 us, total = 260.600 us
+	ray::rpc::WorkerInfoGcsService.grpc_client.AddWorkerInfo.OnReplyReceived - 1 total (0 active), Execution time: mean = 27.300 us, total = 27.300 us, Queueing time: mean = 411.300 us, max = 411.300 us, min = 411.300 us, total = 411.300 us
+	ray::rpc::NodeInfoGcsService.grpc_client.GetAllNodeInfo - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::InternalPubSubGcsService.grpc_client.GcsSubscriberCommandBatch - 1 total (0 active), Execution time: mean = 722.400 us, total = 722.400 us, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+
+-----------------
+Task execution event stats:
+
+Global stats: 0 total (0 active)
+Queueing time: mean = -nan(ind) s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+Execution time:  mean = -nan(ind) s, total = 0.000 s
+Event stats:
+
+-----------------
+Task Event stats:
+
+IO Service Stats:
+
+Global stats: 4 total (1 active)
+Queueing time: mean = 13.125 us, max = 35.900 us, min = 16.600 us, total = 52.500 us
+Execution time:  mean = 250.775 us, total = 1.003 ms
+Event stats:
+	PeriodicalRunner.RunFnPeriodically - 1 total (0 active), Execution time: mean = 152.400 us, total = 152.400 us, Queueing time: mean = 35.900 us, max = 35.900 us, min = 35.900 us, total = 35.900 us
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData - 1 total (0 active), Execution time: mean = 827.500 us, total = 827.500 us, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	CoreWorker.deadline_timer.flush_task_events - 1 total (1 active), Execution time: mean = 0.000 s, total = 0.000 s, Queueing time: mean = 0.000 s, max = -0.000 s, min = 9223372036.855 s, total = 0.000 s
+	ray::rpc::TaskInfoGcsService.grpc_client.AddTaskEventData.OnReplyReceived - 1 total (0 active), Execution time: mean = 23.200 us, total = 23.200 us, Queueing time: mean = 16.600 us, max = 16.600 us, min = 16.600 us, total = 16.600 us
+Other Stats:
+	grpc_in_progress:0
+	current number of task status events in buffer: 0
+	current number of profile events in buffer: 0
+	current number of dropped task attempts tracked: 0
+	total task events sent: 0 MiB
+	total number of task attempts sent: 0
+	total number of task attempts dropped reported: 0
+	total number of sent failure: 0
+	num status task events dropped: 0
+	num profile task events dropped: 0
+
+
+[2025-10-16 23:24:41,144 I 67100 2852] accessor.cc:760: Received notification for node, IsAlive = 1 node_id=0c68fd3bdbbb7de7cdddb49a9c81c23906fe48ddb7b690d2134ce7cd
+[2025-10-16 23:24:41,144 I 67100 2852] core_worker.cc:5080: Number of alive nodes:1
+[2025-10-16 23:24:41,149 I 67100 45052] event.cc:500: Ray Event initialized for CORE_WORKER
+[2025-10-16 23:24:41,149 I 67100 45052] event.cc:500: Ray Event initialized for EXPORT_TASK
+[2025-10-16 23:24:41,150 I 67100 45052] event.cc:331: Set ray event level to warning
+[2025-10-16 23:24:53,206 W 67100 29872] metric_exporter.cc:105: [1] Export metrics to agent failed: RpcError: RPC Error message: failed to connect to all addresses; last error: UNAVAILABLE: ipv4:127.0.0.1:65386: Connection refused; RPC Error details: . This won't affect Ray, but you can lose metrics from the cluster.
+[2025-10-16 23:24:57,694 W 67100 2852] core_worker.cc:1248: Force exit the process.  Details: Worker force exits because its job has finished
+[2025-10-16 23:24:57,706 I 67100 2852] core_worker.cc:1102: Sending disconnect message to the local raylet.
+[2025-10-16 23:24:57,706 I 67100 2852] raylet_client.cc:73: RayletClient::Disconnect, exit_type=INTENDED_SYSTEM_EXIT, exit_detail=Worker force exits because its job has finished, has creation_task_exception_pb_bytes=0
+[2025-10-16 23:24:57,706 I 67100 2852] core_worker.cc:1108: Disconnected from the local raylet.

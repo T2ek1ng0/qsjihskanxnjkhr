@@ -1,0 +1,10 @@
+Checkpoint 1: 300; Time: 52.27973198890686 s
+Checkpoint 2: 600; Time: 104.56746006011963 s
+Checkpoint 3: 900; Time: 178.54142498970032 s
+Checkpoint 4: 1200; Time: 235.11518740653992 s
+Checkpoint 5: 1500; Time: 287.91519021987915 s
+Checkpoint 6: 1800; Time: 347.4653995037079 s
+Checkpoint 7: 2100; Time: 429.2675793170929 s
+Checkpoint 8: 2400; Time: 509.6329114437103 s
+Checkpoint 9: 2700; Time: 590.1461205482483 s
+Checkpoint 10: 3000; Time: 669.6355361938477 s
