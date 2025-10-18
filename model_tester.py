@@ -1,9 +1,7 @@
 from metaevobox.environment.problem.utils import construct_problem_set
 from metaevobox import Config, get_baseline
-from nbnc.my_tester import Tester
+from my_tester import Tester
 from gleet_optimizer import GLEET_Optimizer
-from gleet_agent import GLEET
-from nbnc.basic_nbnc_optimizer import NBNC_opt
 from fixedact_nbnc_optimizer import basic_nbnc_Optimizer
 from my_dynamic_dataset import Dynamic_Dataset
 
@@ -23,7 +21,7 @@ config = {
         'NBNC': {
             'agent': 'GLEET',
             'optimizer': GLEET_Optimizer,
-            'model_load_path': r"agent_model\train\GLEET\20251016T205402_bbob-10D_easy\checkpoint-10.pkl",
+            'model_load_path': r"agent_model\train\GLEET\20251018T011720_bbob-10D_easy\checkpoint-10.pkl",
         },
 
         # Other baselines to compare
