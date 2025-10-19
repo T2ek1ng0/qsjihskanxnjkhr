@@ -33,7 +33,7 @@ class Dynamic_Problem:
             self.optimum.append(problem.optimum)
             self.dim = max(self.dim, problem.dim)
 
-    def eval(self, x):
+    def eval(self, x, mode='noise'):
         if not isinstance(x, np.ndarray):
             x = np.array(x)
         if x.ndim == 1:
@@ -48,24 +48,11 @@ class Dynamic_Problem:
             x_input = x[:, :problem.dim]
             x_input = np.clip(x_input, problem.lb, problem.ub)
             fitness[:, prob_idx] = problem.func(x_input)
-        self.fes += self.ps
-        result = np.sum(weights * fitness, axis=1)
-        return result + noise
-
-    def re_eval(self, x, mode='noise'):  # (gen*5, dim)
-        n_archive = x.shape[0]
-        weights = self.population_weight.re_eval_weight(self.fes, n_archive)
-        noise = self.noise.re_eval_noise(self.fes, self.maxfes, n_archive)
-        fitness = np.zeros((n_archive, self.n_problem))
-        for prob_idx, problem in enumerate(self.problem_list):
-            x_input = x[:, :problem.dim]
-            x_input = np.clip(x_input, problem.lb, problem.ub)
-            fitness[:, prob_idx] = problem.func(x_input)
         result = np.sum(weights * fitness, axis=1)
         if mode == 'noise':
-            self.fes += n_archive
+            self.fes += self.ps
             return result + noise
-        else:
+        elif mode == 'real':
             return result
 
 

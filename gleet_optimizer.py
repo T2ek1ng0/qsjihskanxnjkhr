@@ -534,6 +534,12 @@ class GLEET_Optimizer(Learnable_Optimizer):
         tmp = np.where(filter_per_patience, self.per_no_improve, np.zeros_like(self.per_no_improve))
         self.per_no_improve -= tmp
 
+        # cal the reward
+        all_pos = np.concatenate(self.archive_pos, axis=0)
+        self.archive_newval = problem.eval(all_pos).reshape(len(self.archive_pos), 5)  # f_t
+        reward = self.cal_reward()
+        reward *= self.reward_scale
+
         # update the population
         self.particles = new_particles
         best_idx = np.argsort(val)[:5]
@@ -541,9 +547,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
         self.archive_val.append(val[best_idx])
         self.archive_pos = self.archive_pos[-5:]
         self.archive_val = self.archive_val[-5:]
-        all_pos = np.concatenate(self.archive_pos, axis=0)  # (gen*5, dim)
-        self.archive_prevval = np.concatenate((self.archive_newval, self.archive_val[-1].reshape(1, -1)), axis=0)[-5:]  # F_t-1
-        self.archive_newval = problem.re_eval(all_pos).reshape(len(self.archive_pos), 5)  # F_t
+        self.archive_prevval = np.concatenate((self.archive_newval.copy(), self.archive_val[-1].reshape(1, -1)), axis=0)[-5:]  # f_t-1
 
         if self.__config.full_meta_data:
             self.meta_X.append(self.particles['current_position'].copy())
@@ -555,9 +559,6 @@ class GLEET_Optimizer(Learnable_Optimizer):
         else:
             is_end = self.fes >= self.max_fes
 
-        # cal the reward
-        reward = self.cal_reward()
-        reward *= self.reward_scale
 
         # get the population next_state
         next_state = self.observe()  # ps, 9

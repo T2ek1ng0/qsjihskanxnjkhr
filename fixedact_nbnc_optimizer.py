@@ -78,6 +78,7 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         self.archive_pos = []
         self.archive_val = []
         self.archive_newval = []
+        self.archive_prevval = []
         self.dim = None
 
     def __str__(self):
@@ -147,6 +148,7 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         self.archive_pos.append(rand_pos[best_idx])
         self.archive_val.append(c_cost[best_idx])
         self.archive_newval = self.archive_val.copy()
+        self.archive_prevval = self.archive_val.copy()
 
     def find_nei(self, pop_dist):
         pop_dist[range(self.ps), range(self.ps)] = np.inf
@@ -412,7 +414,7 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
                               axis=-1)  # ps, 18
 
     def cal_reward(self):
-        ratio_per_row = np.mean(self.archive_newval, axis=1) / (np.mean(self.archive_val, axis=1) + 1e-8)  # 先按行平均再比值
+        ratio_per_row = np.mean(self.archive_newval, axis=1) / (np.mean(self.archive_prevval, axis=1) + 1e-8)
         overall_ratio = np.mean(ratio_per_row)
         reward = np.log10(np.maximum(abs(overall_ratio * np.mean(self.archive_val[-1])), 1e-8)) - np.log10(np.maximum(abs(np.mean(self.archive_val[-1])), 1e-8))
         return reward
@@ -527,13 +529,20 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         tmp = np.where(filter_per_patience, self.per_no_improve, np.zeros_like(self.per_no_improve))
         self.per_no_improve -= tmp
 
+        # cal the reward
+        all_pos = np.concatenate(self.archive_pos, axis=0)
+        self.archive_newval = problem.eval(all_pos).reshape(len(self.archive_pos), 5)  # f_t
+        reward = self.cal_reward()
+        reward *= self.reward_scale
+
         # update the population
         self.particles = new_particles
         best_idx = np.argsort(val)[:5]
         self.archive_pos.append(pop[best_idx])
         self.archive_val.append(val[best_idx])
-        all_pos = np.concatenate(self.archive_pos, axis=0)  # (self.gen*5, dim)
-        self.archive_newval = problem.re_eval(all_pos).reshape(len(self.archive_pos), 5)
+        self.archive_pos = self.archive_pos[-5:]
+        self.archive_val = self.archive_val[-5:]
+        self.archive_prevval = np.concatenate((self.archive_newval.copy(), self.archive_val[-1].reshape(1, -1)), axis=0)[-5:]  # f_t-1
 
         if self.__config.full_meta_data:
             self.meta_X.append(self.particles['current_position'].copy())
@@ -544,10 +553,6 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
             is_end = self.fes >= self.max_fes
         else:
             is_end = self.fes >= self.max_fes
-
-        # cal the reward
-        reward = self.cal_reward()
-        reward *= self.reward_scale
 
         # get the population next_state
         next_state = self.observe()  # ps, 9
@@ -579,9 +584,8 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         while self.fes < self.max_fes:
             self.update(problem)
         results = {'cost': self.particles['gbest_val'], 'fes': self.fes}
-        pop = self.particles['current_position']
-        sgbest_idx = self.particles['sgbest_idx']
-        sgbest = [problem.re_eval(pop[sg].reshape(1, -1), mode='real').item() for sg in sgbest_idx]
+        top5_pos = self.archive_pos[-1]
+        sgbest = np.min(problem.eval(top5_pos, mode='real'))
         results['sgbest'] = sgbest
 
         if self.__config.full_meta_data:
