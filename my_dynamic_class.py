@@ -4,10 +4,10 @@ from my_noise import Gaussian_noise
 from metaevobox.environment.problem.basic_problem import Basic_Problem
 
 class Dynamic_Problem:
-    def __init__(self, problem_list: list[Basic_Problem],
+    def __init__(self, max_fes: int,
+                 problem_list: list[Basic_Problem],
                  population_weight: Sub_Problem_Weight,
-                 noise: Gaussian_noise,
-                 max_fes):
+                 noise: Gaussian_noise):
         self.problem_list = problem_list
         self.n_problem = len(self.problem_list)
         self.ps = None
