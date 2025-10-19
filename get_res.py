@@ -13,24 +13,15 @@ def read_sgbest_from_pickle(filename="test_results.pkl"):
             for problem_name, result_dict in sgbest_data.items():
                 print(problem_name)
 
-                for algo_name, list_of_subarrays in result_dict.items():
+                for algo_name, list_of_res in result_dict.items():
                     print(f"agent: {algo_name}")
 
-                    if not list_of_subarrays:
+                    if not list_of_res:
                         print("(无数据)")
                         continue
 
-                    for sub_array in list_of_subarrays:
-                        if isinstance(sub_array, list):
-                            converted = [
-                                float(x) if isinstance(x, np.ndarray) and x.size == 1 else x
-                                for x in sub_array
-                            ]
-                            print(converted)
-                        else:
-                            print(sub_array)
+                    print(f"mean={np.mean(list_of_res)}, std={np.std(list_of_res)}")
 
-                    print("\n")
         else:
             print(f"错误：在文件 '{filename}' 中未找到 'sgbest' 键。")
 
@@ -41,5 +32,5 @@ def read_sgbest_from_pickle(filename="test_results.pkl"):
 
 
 if __name__ == "__main__":
-    pkl_file = r"output\test\20251018T012244_bbob-10D_easy\test_results.pkl"
+    pkl_file = r"output\test\20251019T231054_bbob-10D_easy\test_results.pkl"
     read_sgbest_from_pickle(pkl_file)

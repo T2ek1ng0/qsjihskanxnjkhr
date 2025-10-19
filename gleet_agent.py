@@ -1,3 +1,4 @@
+import numpy as np
 from torch import nn
 from torch.distributions import Normal
 
@@ -521,7 +522,7 @@ class GLEET(PPO_Agent):
 
             if env.optimizer.archive_pos:
                 top5_pos = env.optimizer.archive_pos[-1]
-                sgbest = env.problem.re_eval(top5_pos, mode='real').tolist()
+                sgbest = np.min(env.problem.eval(top5_pos, mode='real'))
                 results['sgbest'] = sgbest
             else:
                 results['sgbest'] = []

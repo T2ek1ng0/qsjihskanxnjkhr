@@ -8,12 +8,12 @@ from my_dynamic_dataset import Dynamic_Dataset
 # specify your configuration
 config = {
     'train_problem': 'bbob-10D',
-    'train_batch_size': 2,
+    'train_batch_size': 8,
     'train_parallel_mode': 'dummy',  # dummy/subproc/ray/ray-subproc
-    'max_learning_step': 1000,
-    'max_epoch': 10,
+    'max_epoch': 100,
+    'train_mode': 'multi',
     'test_problem': 'bbob-10D',  # specify the problem set you want to benchmark
-    'test_batch_size': 2,
+    'test_batch_size': 8,
     'test_difficulty': 'easy',  # this is a train-test split mode
     'test_parallel_mode': 'Serial',  # 'Full', 'Baseline_Problem', 'Problem_Testrun', 'Batch', 'Serial'
     'baselines': {
@@ -21,7 +21,7 @@ config = {
         'NBNC': {
             'agent': 'GLEET',
             'optimizer': GLEET_Optimizer,
-            'model_load_path': r"agent_model\train\GLEET\20251018T011720_bbob-10D_easy\checkpoint-10.pkl",
+            'model_load_path': r"agent_model\train\GLEET\20251019T223214_bbob-10D_easy\checkpoint-20.pkl",
         },
 
         # Other baselines to compare

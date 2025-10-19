@@ -6,10 +6,10 @@ from my_dynamic_dataset import Dynamic_Dataset
 
 # put user-specific configuration
 config = {'train_problem': 'bbob-10D',
-          'train_batch_size': 2,
+          'train_batch_size': 8,
           'train_parallel_mode': 'dummy',  # dummy/subproc/ray/ray-subproc
-          'max_learning_step': 1000,
-          'max_epoch': 10,
+          'max_epoch': 100,
+          'train_mode': 'multi',
           }
 config = Config(config)
 # construct dataset

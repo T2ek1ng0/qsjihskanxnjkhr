@@ -38,17 +38,6 @@ class Sub_Problem_Weight:
             self.fes_process = int(total_process[-1])
         return weight_matrix[0] if batch_size == 1 else weight_matrix
 
-    def re_eval_weight(self, curr_fes, n_archive):  # weight_matrix: (n_archive,n_problem)
-        total_fes = np.arange(curr_fes + 1, curr_fes + 1 + n_archive)
-        total_process = np.searchsorted(self.fes_thresholds, total_fes, side='right') - 1
-        old_process = np.r_[self.fes_process, total_process[:-1]]
-        update_mask = (total_process > old_process).astype(int)
-        pos_matrix = (self.pos + np.cumsum(update_mask)) % self.n_problem  # (n_archive,)
-        weight_matrix = np.zeros((n_archive, self.n_problem))
-        weight_matrix[np.arange(n_archive), pos_matrix] = 1
-        self.pos = int(pos_matrix[-1])
-        self.fes_process = int(total_process[-1])
-        return weight_matrix
 
 
 

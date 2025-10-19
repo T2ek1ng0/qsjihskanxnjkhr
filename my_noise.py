@@ -14,10 +14,6 @@ class Gaussian_noise:
         noise = np.random.normal(self.mean, total_std)
         return noise[0] if batch_size == 1 else noise
 
-    def re_eval_noise(self, curr_fes: int, max_fes, n_archive):  # noise_matrix: (n_archive,)
-        fes = np.arange(curr_fes + 1, curr_fes + 1 + n_archive)
-        total_std = self.begin_std + (self.end_std - self.begin_std) * fes / max_fes
-        return np.random.normal(self.mean, total_std)
 
 
 
