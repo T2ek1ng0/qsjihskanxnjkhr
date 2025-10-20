@@ -3,6 +3,7 @@ import torch
 from my_weight import Sub_Problem_Weight
 from my_noise import Gaussian_noise
 from my_dynamic_class import *
+from basic_problem import *
 from torch.utils.data import Dataset
 
 class Dynamic_Dataset(Dataset):
@@ -31,6 +32,13 @@ class Dynamic_Dataset(Dataset):
         if instance_seed > 0:
             np.random.seed(instance_seed)
             torch.manual_seed(instance_seed)
+
+        instance_class_list = ["Sphere", "Schwefel12", "Ellipsoidal", "Ellipsoidal_high_cond", "Bent_cigar",
+                         "Discus", "Dif_powers", "Rosenbrock", "Ackley", "Weierstrass", "Griewank", "Rastrigin",
+                         "Buche_Rastrigin", "Mod_Schwefel", "Katsuura", "Grie_rosen", "Escaffer6", "Happycat",
+                         "Hgbat", "Lunacek_bi_Rastrigin", "Zakharov", "Levy", "Scaffer_F7", "Step_Rastrigin",
+                         "Linear_Slope", "Attractive_Sector", "Step_Ellipsoidal", "Sharp_Ridge", "Rastrigin_F15",
+                         "Schwefel", "Gallagher101", "Gallagher21"]
 
         train_problem_set = datasets[0]
         train_problem_set = [p[0] for p in train_problem_set]
