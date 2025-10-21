@@ -55,7 +55,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
             self.w = 0.729
         self.c = 4.1
 
-        self.reward_scale = 100
+        self.reward_scale = 1
 
         self.ps = 20
 
