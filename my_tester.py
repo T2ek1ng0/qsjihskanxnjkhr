@@ -504,6 +504,8 @@ class Tester(object):
             pass
         elif 'bbob' in self.config.test_problem:
             pass
+        elif 'dynamic-problem' in self.config.test_problem:
+            pass
         else:
             if "CMAES" not in name_count:
                 cmaes = CMAES(self.config)
