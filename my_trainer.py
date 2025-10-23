@@ -248,7 +248,7 @@ class Trainer(object):
             self.train_set.shuffle()
             return_record = []
             loss_record = []
-            with tqdm(total=self.train_set.N,
+            with tqdm(range(int(np.ceil(self.train_set.N / self.train_set.batch_size))),
                       desc=f'Training {self.agent.__class__.__name__} Epoch {epoch + 1}') as pbar:
                 for problem_id, problem in enumerate(self.train_set):
                     # set seed
@@ -283,7 +283,7 @@ class Trainer(object):
                         pickle.dump(train_log, f)
 
                     pbar.set_postfix_str(postfix_str)
-                    pbar.update(self.train_set.batch_size)
+                    pbar.update()
                     learn_step = train_meta_data['learn_steps']
 
                     return_record.append(np.mean(train_meta_data['return']))

@@ -113,16 +113,13 @@ class Dynamic_Dataset(Dataset):
                                                    population_weight=Sub_Problem_Weight(len(instance_list), 50000, rates=1 / len(instance_list)),
                                                    noise=my_noise))
 
-        train_choice = np.random.randint(1, 4)
-        if train_choice == 1:
-            train_set = instance_noise
-            test_set = instance_weight + instance_composition
-        elif train_choice == 2:
-            train_set = instance_weight
-            test_set = instance_noise + instance_composition
-        elif train_choice == 3:
-            train_set = instance_composition
-            test_set = instance_noise + instance_weight
+        instance_list = instance_noise + instance_weight + instance_composition
+        indices = np.arange(len(instance_list))
+        train_idx = np.random.choice(indices, 64, replace=False)
+        test_idx = np.setdiff1d(indices, train_idx)
+        train_set = [instance_list[i] for i in train_idx]
+        test_set = [instance_list[i] for i in test_idx]
+
         return Dynamic_Dataset(train_set, train_batch_size), Dynamic_Dataset(test_set, test_batch_size)
 
     def __getitem__(self, item):
