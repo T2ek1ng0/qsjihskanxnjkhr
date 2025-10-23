@@ -521,8 +521,8 @@ class GLEET(PPO_Agent):
                 results[key] = getattr(env, required_info[key])
 
             if env.optimizer.archive_pos:
-                top5_pos = env.optimizer.archive_pos[-1]
-                sgbest = np.min(env.problem.eval(top5_pos, mode='real'))
+                top_pos = env.optimizer.archive_pos[-1]
+                sgbest = env.problem.eval(top_pos, mode='real')
                 results['sgbest'] = sgbest
             else:
                 results['sgbest'] = []

@@ -146,7 +146,9 @@ def get_problem_set(config, problem, difficulty, train_list, test_list):
                                             path = config.uav_path)
 
     elif problem in ['dynamic-problem']:
-        return Dynamic_Dataset.get_datasets(upperbound=config.upperbound)
+        return Dynamic_Dataset.get_datasets(train_batch_size=config.train_batch_size,
+                                            test_batch_size=config.test_batch_size,
+                                            upperbound=config.upperbound)
 
     else:
         raise ValueError(problem + ' is not defined!')

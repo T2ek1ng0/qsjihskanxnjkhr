@@ -55,13 +55,14 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
             self.w = 0.729
         self.c = 4.1
 
-        self.reward_scale = 100
+        self.reward_scale = 10
 
-        self.ps = 20
+        self.ps = 100
 
         self.no_improve = 0
 
-        self.max_fes = config.maxFEs
+        #self.max_fes = config.maxFEs
+        self.max_fes = None
 
         self.boarder_method = 'clipping'
         #self.reward_func = 'direct'
@@ -77,8 +78,6 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         self.gen = 0
         self.archive_pos = []
         self.archive_val = []
-        self.archive_newval = []
-        self.archive_prevval = []
         self.dim = None
 
     def __str__(self):
@@ -144,12 +143,8 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
                           'guide_vec': guide_vec,
                           'Species': Species,
                           }
-        best_idx = np.argsort(c_cost)[:5]
-        self.archive_pos.append(rand_pos[best_idx])
-        self.archive_val.append(c_cost[best_idx])
-        self.archive_newval = self.archive_val.copy()
-        self.archive_prevval = self.archive_val.copy()
-
+        self.archive_pos.append(gbest_position.copy())
+        self.archive_val.append(gbest_val)
     def find_nei(self, pop_dist):
         pop_dist[range(self.ps), range(self.ps)] = np.inf
         pop_dist_arg = np.argsort(pop_dist.copy(), axis=-1)
@@ -276,6 +271,7 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         """
 
         self.fes = 0
+        self.max_fes = problem.maxfes
         self.per_no_improve = np.zeros((self.ps,))
         self.max_velocity = 0.1 * (problem.ub - problem.lb)
         # set the hyperparameters back to init value if needed
@@ -367,7 +363,7 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         #fea1 = (self.particles['c_cost'] - self.particles['gbest_val']) / self.max_cost  # ps
         # cost archive
         if len(self.archive_val) >= 2:
-            fea1 = np.log10(np.maximum(abs(np.mean(self.archive_val[-1])), 1e-8) / np.maximum(abs(np.mean(self.archive_val[-2])), 1e-8))
+            fea1 = np.log10(np.maximum(abs(self.archive_val[-1]), 1e-8) / np.maximum(abs(self.archive_val[-2]), 1e-8))
             fea1 = np.clip(fea1, -8, 8) / 8
             fea1 = np.full(self.ps, fea1)
         else:
@@ -412,12 +408,6 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
 
         return np.concatenate((self.pbest_feature, self.gbest_feature[None, :].repeat(self.ps, axis=0)),
                               axis=-1)  # ps, 18
-
-    def cal_reward(self):
-        ratio_per_row = np.mean(self.archive_newval, axis=1) / (np.mean(self.archive_prevval, axis=1) + 1e-8)
-        overall_ratio = np.mean(ratio_per_row)
-        reward = np.log10(np.maximum(abs(overall_ratio * np.mean(self.archive_val[-1])), 1e-8)) - np.log10(np.maximum(abs(np.mean(self.archive_val[-1])), 1e-8))
-        return reward
 
     def fixed_act(self):
         w = 0.9 - (0.9 - 0.4) * (self.gen / self.max_gen)
@@ -529,20 +519,12 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         tmp = np.where(filter_per_patience, self.per_no_improve, np.zeros_like(self.per_no_improve))
         self.per_no_improve -= tmp
 
-        # cal the reward
-        all_pos = np.concatenate(self.archive_pos, axis=0)
-        self.archive_newval = problem.eval(all_pos).reshape(len(self.archive_pos), 5)  # f_t
-        reward = self.cal_reward()
-        reward *= self.reward_scale
-
         # update the population
         self.particles = new_particles
-        best_idx = np.argsort(val)[:5]
-        self.archive_pos.append(pop[best_idx])
-        self.archive_val.append(val[best_idx])
+        self.archive_pos.append(gbest_position.copy())
+        self.archive_val.append(gbest_val)
         self.archive_pos = self.archive_pos[-5:]
         self.archive_val = self.archive_val[-5:]
-        self.archive_prevval = np.concatenate((self.archive_newval.copy(), self.archive_val[-1].reshape(1, -1)), axis=0)[-5:]  # f_t-1
 
         if self.__config.full_meta_data:
             self.meta_X.append(self.particles['current_position'].copy())
@@ -576,16 +558,14 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
                 while len(self.cost) < self.__config.n_logpoint + 1:
                     self.cost.append(self.particles['gbest_val'])
 
-        info = {}
-        return next_state, reward, is_end, info
 
     def run_episode(self, problem):
         self.init_population(problem)
         while self.fes < self.max_fes:
             self.update(problem)
         results = {'cost': self.particles['gbest_val'], 'fes': self.fes}
-        top5_pos = self.archive_pos[-1]
-        sgbest = np.min(problem.eval(top5_pos, mode='real'))
+        top_pos = self.archive_pos[-1]
+        sgbest = problem.eval(top_pos, mode='real')
         results['sgbest'] = sgbest
 
         if self.__config.full_meta_data:

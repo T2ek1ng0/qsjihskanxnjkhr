@@ -1,8 +1,8 @@
-from metaevobox import Config, Trainer
+from my_config import Config
+from my_trainer import Trainer
 from my_utils import construct_problem_set
 from gleet_optimizer import GLEET_Optimizer
 from gleet_agent import GLEET
-from my_dynamic_dataset import Dynamic_Dataset
 
 # put user-specific configuration
 config = {'train_problem': 'dynamic-problem',
