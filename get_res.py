@@ -32,5 +32,5 @@ def read_sgbest_from_pickle(filename="test_results.pkl"):
 
 
 if __name__ == "__main__":
-    pkl_file = r"output\test\20251023T101632_dynamic-problem_easy\test_results.pkl"
+    pkl_file = r"output\test\20251024T100129_dynamic-problem_easy\test_results.pkl"
     read_sgbest_from_pickle(pkl_file)
