@@ -74,7 +74,7 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
 
         self.k_neighbors = 4
         self.n_action = 3
-        self.max_gen = self.__config.max_learning_step
+        self.max_gen = None
         self.gen = 0
         self.archive_pos = []
         self.archive_val = []
@@ -272,6 +272,7 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
 
         self.fes = 0
         self.max_fes = problem.maxfes
+        self.max_gen = self.max_fes // self.ps
         self.per_no_improve = np.zeros((self.ps,))
         self.max_velocity = 0.1 * (problem.ub - problem.lb)
         # set the hyperparameters back to init value if needed
