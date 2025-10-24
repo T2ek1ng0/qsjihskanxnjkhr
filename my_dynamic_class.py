@@ -14,10 +14,10 @@ class Dynamic_Problem:
         self.population_weight = population_weight
         self.noise = noise
         self.dim = 0
-        self.optimum = []
         self.T1 = [0] * self.n_problem
         self.fes = 0
         self.maxfes = max_fes
+        self.avg_dist = None
         if self.population_weight:
             self.ub = self.problem_list[self.population_weight.pos].ub
             self.lb = self.problem_list[self.population_weight.pos].lb
@@ -63,13 +63,22 @@ class Dynamic_Problem:
             self.optimum = self.problem_list[self.population_weight.pos].optimum
             fitness = np.stack([problem.func(np.clip(x[:, :problem.dim], problem.lb, problem.ub)) for problem in self.problem_list],axis=1)  # (ps,n_problem)
             result = np.sum(weights * fitness, axis=1)
+            self.record_dist(ps, result, weights)
         else:
             result = self.problem_list.func(np.clip(x[:, :self.dim], self.lb, self.ub))
+            self.record_dist(ps, result)
         if mode == 'noise':
             self.fes += ps
             return result + noise
         elif mode == 'real':
             return result
+
+    def record_dist(self, ps, result, weights: Union[np.ndarray, None] = None):
+        if self.population_weight:
+            self.avg_dist = np.sum(result - np.sum(np.array(self.optimum).reshape(1, -1) * weights, axis=1)) / self.maxfes
+        else:
+            self.avg_dist = np.sum(result - np.full(ps, self.optimum)) / self.maxfes
+
 
 
 

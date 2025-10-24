@@ -81,6 +81,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
         self.archive_prevval = []
         self.archive_newval = []
         self.dim = None
+        self.avgdist = 0
 
     def __str__(self):
         """
@@ -543,6 +544,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
         reward *= self.reward_scale
 
         # update the population
+        self.avgdist += problem.avg_dist
         self.particles = new_particles
         self.archive_pos.append(gbest_position.copy())
         self.archive_val.append(gbest_val)

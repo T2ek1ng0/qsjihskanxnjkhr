@@ -509,7 +509,7 @@ class GLEET(PPO_Agent):
                 R += reward
             env_cost = env.get_env_attr('cost')
             env_fes = env.get_env_attr('fes')
-            results = {'cost': env_cost, 'fes': env_fes, 'return': R}
+            results = {'cost': env_cost, 'fes': env_fes, 'return': R, 'avg_dist': env.optimizer.avgdist}
 
             if self.config.full_meta_data:
                 meta_X = env.get_env_attr('meta_X')
@@ -519,12 +519,5 @@ class GLEET(PPO_Agent):
 
             for key in required_info.keys():
                 results[key] = getattr(env, required_info[key])
-
-            if env.optimizer.archive_pos:
-                top_pos = env.optimizer.archive_pos[-1]
-                sgbest = env.problem.eval(top_pos, mode='real')
-                results['sgbest'] = sgbest
-            else:
-                results['sgbest'] = []
 
             return results

@@ -79,6 +79,7 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         self.archive_pos = []
         self.archive_val = []
         self.dim = None
+        self.avgdist = 0
 
     def __str__(self):
         """
@@ -521,6 +522,7 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         self.per_no_improve -= tmp
 
         # update the population
+        self.avgdist += problem.avg_dist
         self.particles = new_particles
         self.archive_pos.append(gbest_position.copy())
         self.archive_val.append(gbest_val)
@@ -564,10 +566,7 @@ class basic_nbnc_Optimizer(Basic_Optimizer):
         self.init_population(problem)
         while self.fes < self.max_fes:
             self.update(problem)
-        results = {'cost': self.particles['gbest_val'], 'fes': self.fes}
-        top_pos = self.archive_pos[-1]
-        sgbest = problem.eval(top_pos, mode='real')
-        results['sgbest'] = sgbest
+        results = {'cost': self.particles['gbest_val'], 'fes': self.fes, 'avg_dist': self.avgdist}
 
         if self.__config.full_meta_data:
             metadata = {'X': self.meta_X, 'Cost': self.meta_Cost}
