@@ -7,8 +7,8 @@ def read_sgbest_from_pickle(filename="test_results.pkl"):
         with open(filename, 'rb') as f:
             data = pickle.load(f)
 
-        if 'sgbest' in data:
-            sgbest_data = data['sgbest']
+        if 'avg_dist' in data:
+            sgbest_data = data['avg_dist']
 
             for problem_name, result_dict in sgbest_data.items():
                 print(problem_name)
@@ -23,7 +23,7 @@ def read_sgbest_from_pickle(filename="test_results.pkl"):
                     print(f"mean={np.mean(list_of_res)}, std={np.std(list_of_res)}")
 
         else:
-            print(f"错误：在文件 '{filename}' 中未找到 'sgbest' 键。")
+            print(f"错误：在文件 '{filename}' 中未找到 'avg_dist' 键。")
 
     except FileNotFoundError:
         print(f"错误：文件 '{filename}' 不存在。请确保文件在正确的路径下。")
