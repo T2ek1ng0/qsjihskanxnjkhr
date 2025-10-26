@@ -491,6 +491,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
 
         # calculate the new costs
         new_cost = self.get_costs(new_position, problem)
+        self.avgdist += problem.avg_dist
 
         # update particles
         filters = new_cost < self.particles['pbest_val']
@@ -540,11 +541,11 @@ class GLEET_Optimizer(Learnable_Optimizer):
         # cal the reward
         all_pos = np.concatenate(self.archive_pos, axis=0)
         self.archive_newval = problem.eval(all_pos)  # f_t:(5,1)
+        self.avgdist += problem.avg_dist
         reward = self.cal_reward()
         reward *= self.reward_scale
 
         # update the population
-        self.avgdist += problem.avg_dist
         self.particles = new_particles
         self.archive_pos.append(gbest_position.copy())
         self.archive_val.append(gbest_val)
