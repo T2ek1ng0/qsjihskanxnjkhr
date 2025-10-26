@@ -2,7 +2,6 @@ import pickle
 import os
 
 from metaevobox.environment.problem.MMO.CEC2013MMO.cec2013mmo_dataset import CEC2013MMO_Dataset
-from metaevobox.environment.problem.MMO.CEC2013MMO.cec2013mmo_dataset import CEC2013MMO_noise_Dataset
 from metaevobox.environment.problem.MOO.MOO_synthetic.moo_synthetic_dataset import MOO_Synthetic_Dataset
 from metaevobox.environment.problem.MTO.WCCI2020.wcci2020_dataset import WCCI2020_Dataset
 from metaevobox.environment.problem.MTO.CEC2017MTO.cec2017mto_dataset import CEC2017MTO_Dataset
