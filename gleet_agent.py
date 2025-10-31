@@ -220,8 +220,8 @@ class GLEET(PPO_Agent):
         self.config = config
 
         self.config.optimizer = 'Adam'
-        self.config.lr_actor = 1e-4
-        self.config.lr_critic = 1e-4
+        self.config.lr_actor = 1e-5
+        self.config.lr_critic = 1e-5
         self.config.lr_scheduler = 'ExponentialLR'
 
         # define parameters
@@ -246,7 +246,7 @@ class GLEET(PPO_Agent):
         self.config.eps_clip = 0.1
         self.config.lr_model = 1e-4
         self.config.lr_decay = 0.9862327
-        self.config.max_grad_norm = 0.1
+        self.config.max_grad_norm = 2
 
         # figure out the actor network
         actor = Actor(
