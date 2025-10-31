@@ -425,7 +425,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
         if len(self.archive_val) < 2:
             return 0.0
         reward = np.log10(np.maximum(abs(overall_ratio * self.archive_val[-2]), 1e-8)) - np.log10(np.maximum(abs(self.archive_val[-1]), 1e-8))
-        #reward = np.maximum(reward, 0) / (np.log10(np.maximum(abs(overall_ratio * self.archive_val[-2]), 1e-8)) + 8 + 1e-8)
+        reward = np.maximum(reward, 0) / (np.log10(np.maximum(abs(overall_ratio * self.archive_val[-2]), 1e-8)) + 8 + 1e-8)
         return reward
 
     def act(self, action):
