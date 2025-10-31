@@ -69,7 +69,7 @@ class Dynamic_Problem:
             self.record_dist(ps, result)
         if mode == 'noise':
             self.fes += ps
-            return result + noise
+            return np.abs(result + noise)
         elif mode == 'real':
             return result
 
