@@ -55,7 +55,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
             self.w = 0.729
         self.c = 4.1
 
-        self.reward_scale = 10
+        self.reward_scale = 1
 
         self.ps = 100
 
@@ -370,7 +370,10 @@ class GLEET_Optimizer(Learnable_Optimizer):
         #fea1 = (self.particles['c_cost'] - self.particles['gbest_val']) / self.max_cost  # ps
         # cost archive
         if len(self.archive_val) >= 2:
-            fea1 = np.log10(np.maximum(abs(self.archive_val[-1]), 1e-8) / np.maximum(abs(self.archive_val[-2]), 1e-8))
+            ratio_per_row = (np.array(self.archive_newval) + 1e-8) / (np.array(self.archive_prevval) + 1e-8)
+            overall_ratio = np.mean(ratio_per_row)
+            #print(self.archive_prevval, overall_ratio)
+            fea1 = np.log10(overall_ratio)
             fea1 = np.clip(fea1, -8, 8) / 8
             fea1 = np.full(self.ps, fea1)
         else:
@@ -422,7 +425,7 @@ class GLEET_Optimizer(Learnable_Optimizer):
         if len(self.archive_val) < 2:
             return 0.0
         reward = np.log10(np.maximum(abs(overall_ratio * self.archive_val[-2]), 1e-8)) - np.log10(np.maximum(abs(self.archive_val[-1]), 1e-8))
-        reward = np.maximum(reward, 0) / np.log10(np.maximum(abs(overall_ratio * self.archive_val[-2]), 1e-8)) + 8 + 1e-8
+        #reward = np.maximum(reward, 0) / (np.log10(np.maximum(abs(overall_ratio * self.archive_val[-2]), 1e-8)) + 8 + 1e-8)
         return reward
 
     def act(self, action):
@@ -518,8 +521,8 @@ class GLEET_Optimizer(Learnable_Optimizer):
             no_improve += 1
         self.no_improve = no_improve
         meandis = np.sum(new_pop_dist) / (self.ps * (self.ps - 1))
-        new_particles = {'current_position': pop.copy(),
-                         'c_cost': val.copy(),
+        new_particles = {'current_position': new_position.copy(),
+                         'c_cost': new_cost,
                          'v': v,
                          'pop_dist': new_pop_dist.copy(),
                          'neighbor_matrix': new_neighbor_matrix.copy(),
@@ -543,15 +546,15 @@ class GLEET_Optimizer(Learnable_Optimizer):
 
         # cal the reward
         all_pos = np.concatenate(self.archive_pos, axis=0)
-        self.archive_newval = problem.eval(all_pos)  # f_t:(5,1)
+        self.archive_newval = problem.eval(all_pos)  # t-5,t-4,t-3,t-2,t-1
         self.avgdist += problem.avg_dist
+        self.archive_val.append(gbest_val)
         reward = self.cal_reward()
         reward *= self.reward_scale
 
         # update the population
         self.particles = new_particles
         self.archive_pos.append(gbest_position.copy())
-        self.archive_val.append(gbest_val)
         self.archive_pos = self.archive_pos[-5:]
         self.archive_val = self.archive_val[-5:]
         self.archive_prevval = np.concatenate((self.archive_newval.copy(), np.array([self.archive_val[-1]])), axis=0)[-5:]  # f_t-1(5,1)
@@ -590,4 +593,5 @@ class GLEET_Optimizer(Learnable_Optimizer):
                     self.cost.append(self.particles['gbest_val'])
 
         info = {}
+        #print(np.max(next_state), np.min(next_state))
         return next_state, reward, is_end, info
